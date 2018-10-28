@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> </link>
+	<title>		Formulario Libre Mercado	</title>
+
+     <style type="text/css">
+  body {
+    color: purple;
+    background-color: #00FFFF }
+    
+  a:link {
+  	text-decoration: none;
+    }
+  
+  a{
+  	color: white;
+  }
+  
+  h1{
+  	text-align: center;
+  }
+    
+  label{
+  	color: black;
+  	font-family: inherit;
+  	font-weight 600;
+  	 }	    
+    
+  </style>
+
+</head>
+
+<body>
+
+	<nav class="navbar navbar-dark bg-dark">
+  		<h1 class="navbar-brand" href="#">Agregar Publicacion</h1>
+	</nav>
+
+<form action="agregarProducto" method = "post">
+	<label>Publicacion</label> <br/>
+		<input type = "text" th:field = "${Producto.nombreProducto}" 
+   		placeholder = "Ingrese el nombre" /><br/><br/>
+   		
+   	<label>Precio</label> <br/>
+   		<input type = "number" th:field = "${Producto.precioProducto}"
+   		placeHolder = "Ingresar Precio"/> <br/><br/>
+   		
+   	<label>Cantidad</label> <br/>
+   		<input type = "number" th:field = "${Producto.cantidad}"
+   		placeHolder = "Ingresar cantidad"/> <br/><br/>
+   		   			
+	<button type="submit" class="btn btn-dark" value= "Agregar Producto">Agregar Publicacion</button>	
+
+</form>
+
+<br/>
+<button type="submit" class="btn btn-dark" value= "Agregar Producto"><label> <a th:href= "@{/}">Inicio</a> </label></button>
+
+</body>
+
+
+
+</html>
