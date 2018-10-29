@@ -2,75 +2,65 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> </link>
-	<title>		Formulario Publicacion</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> </link>
+    <title>		Formulario Publicacion</title>
 
-     <style type="text/css">
-  
-     a:link {
-  	text-decoration: none;
-    }
-    
-    a{
-    	color: white;
-    }
-    
-  	</style>
+    <style type="text/css">
+
+        a:link {
+            text-decoration: none;
+        }
+
+        a{
+            color: white;
+        }
+
+    </style>
 
 </head>
 
 <body>
-  	
-  		<nav class="navbar navbar-dark bg-dark">
-  			<h1 class="navbar-brand" href="#">Lista de Publicaciones</h1>
-		</nav>
 
-		<h2>Lista </h2>
-		
-		<hr/>
-			
-			<h3>Total: <a th:text = "${precioFinal}"> </a>  </h3>
-			
-			<hr/>
-			
+<nav class="navbar navbar-dark bg-dark">
+    <h1 class="navbar-brand" href="#">Lista de Publicaciones</h1>
+</nav>
+
+<h2>Lista de publicaciones </h2>
+
+
+
 <table class="table">
 
-  <thead>
+    <thead>
     <tr>
-      
-      <th scope="col">Publicacion</th>
-      <th scope="col">Precio</th>
-      <th scope="col">Cantidad</th>
+
+        <th scope="col">Publicacion</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Cantidad</th>
     </tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
 
     <tr th:each = "p : ${listaDeProductos}" >
-      
-      <td><p th:text = "${p.getNombreProducto()}"> </p></td>
-      <td><p th:text = "${p.getPrecioProducto()}"> </p></td>
-      <td><p th:text = "${p.getCantidad()}"> </p></td>
-      
-      <td><button type="button" class="btn btn-primary btn-sm"><label>	<a th:href = "@{/eliminarProducto(id = ${p.getId()})}" class = "sub">Elimniar Publicacion</a> </label></button></td>
-	        <td><button type="button" class="btn btn-primary btn-sm"><label>	<a th:href = "@{/eliminarProducto(id = ${p.getId()})}" class = "sub">Comprar Publicacion</a> </label></button></td>	    
+
+        <td><p th:text = "${p.getNombreProducto()}"> </p></td>
+        <td><p th:text = "${p.getPrecioProducto()}"> </p></td>
+        <td><p th:text = "${p.getCantidad()}"> </p></td>
+
+        <td><button type="button" class="btn btn-primary btn-sm"><label>	<a th:href = "@{/eliminarProducto(id = ${p.getId()})}" class = "sub">Elimniar Publicacion</a> </label></button></td>
+        <td><button type="button" class="btn btn-primary btn-sm"><label>	<a th:href = "@{/comprarProducto(id = ${p.getId()})}" class = "sub">Comprar Publicacion</a> </label></button></td>
     </tr>
 
-  </tbody>
+    </tbody>
 </table>
 
-			 
-			 <hr/>
-			 
-			<h3>Total: <a th:text = "${precioFinal}"> </a>  </h3>
-			 
-			 <hr/><hr/>
-			 
-			<a th:href = "@{/}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Volver a Inicio</a>
-	  			
-	  	
 
-	
-  </body>
+<a th:href = "@{/}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Volver a Inicio</a>
+
+
+
+
+</body>
 
 
 
