@@ -11,6 +11,7 @@ public class LibreMercadoApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		assert true;
 	}
 
 }
