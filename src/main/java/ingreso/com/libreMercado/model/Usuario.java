@@ -8,13 +8,15 @@ import javax.persistence.Id;
 
 @Entity
 public class Usuario {
+
     @Id
     @GeneratedValue
     private int id;
+
     private String nombreDeUsuario;
     private String contraseña;
 
-
+    public Usuario(){}
 
 
     public Usuario(String nombreACrear, String contraseñaACrear){
