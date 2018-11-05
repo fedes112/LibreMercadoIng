@@ -1,5 +1,7 @@
 package ingreso.com.libreMercado.mainController;
 
+import ingreso.com.libreMercado.model.DaoUsuario;
+import ingreso.com.libreMercado.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,7 +18,8 @@ public class mainController {
 
 	@Autowired
 	private DaoProducto daoProducto;
-
+	@Autowired
+	private DaoUsuario daoUsuario;
 
 	//Home
 	@RequestMapping(value = "/",
@@ -110,6 +113,36 @@ public class mainController {
 
 		return modelAndView;
 
+	}
+
+
+	@RequestMapping(value= "registrarUsuario",
+			method = RequestMethod.GET)
+	public ModelAndView registrarUsuarioGET(){
+
+		ModelAndView modelAndView = new ModelAndView();
+
+		modelAndView.addObject("Usuario", new Usuario());
+
+		modelAndView.setViewName("registrarUsuario");
+
+		return modelAndView;
+
+	}
+	@RequestMapping(value= "registrarUsuario",
+			method = RequestMethod.POST)
+	public ModelAndView registrarUsuarioPOST(@ModelAttribute Usuario usuario){
+
+		ModelAndView modelAndView = new ModelAndView();
+
+
+		daoUsuario.save(usuario);
+
+		modelAndView.addObject("usuario", new Usuario());
+
+		modelAndView.setViewName("redirect:/");
+
+		return modelAndView;
 	}
 
 
