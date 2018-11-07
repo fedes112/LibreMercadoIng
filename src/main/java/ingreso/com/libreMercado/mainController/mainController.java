@@ -28,10 +28,22 @@ public class mainController {
 
 		ModelAndView modelAndView = new ModelAndView();
 
-		modelAndView.setViewName("index");
+		modelAndView.setViewName("inicio");
 
 		return modelAndView;
 	}
+
+	@RequestMapping(value = "/menuPrincipal",
+			method = RequestMethod.GET)
+	public ModelAndView menuPrincipalGet(){
+
+		ModelAndView modelAndView = new ModelAndView();
+
+		modelAndView.setViewName("menuPrincipal");
+
+		return modelAndView;
+	}
+
 
 	@RequestMapping(value= "agregarProducto",
 			method = RequestMethod.GET)
@@ -112,9 +124,7 @@ public class mainController {
 		modelAndView.setViewName("verProductos");
 
 		return modelAndView;
-
 	}
-
 
 	@RequestMapping(value= "registrarUsuario",
 			method = RequestMethod.GET)
@@ -129,12 +139,12 @@ public class mainController {
 		return modelAndView;
 
 	}
+
 	@RequestMapping(value= "registrarUsuario",
 			method = RequestMethod.POST)
 	public ModelAndView registrarUsuarioPOST(@ModelAttribute Usuario usuario){
 
 		ModelAndView modelAndView = new ModelAndView();
-
 
 		daoUsuario.save(usuario);
 
@@ -145,7 +155,40 @@ public class mainController {
 		return modelAndView;
 	}
 
+	@RequestMapping(value = "inicioSesion",
+			method = RequestMethod.GET)
+	public ModelAndView formularioInicioUsuarioGet(){
+		ModelAndView modelAndView = new ModelAndView();
 
+		modelAndView.addObject("usuario", new Usuario());
+
+		modelAndView.setViewName("inicioSesion");
+
+		return modelAndView;
+	}
+
+	//Se verifica si un propietario existe o no en la base de datos
+	@RequestMapping(value = "verificarUsuario",
+			method = RequestMethod.POST)
+	public ModelAndView formularioInicioUsuarioPost(@ModelAttribute Usuario usuario) {
+		ModelAndView modelAndView = new ModelAndView();
+
+		if (daoUsuario.exists(usuario.getDni())) {
+
+			Usuario usuario1 = daoUsuario.findOne(usuario.getDni());
+
+			if (usuario.getContraseña().equals(usuario1.getContraseña())) {
+				modelAndView.addObject("usuario", usuario1);
+				modelAndView.setViewName("menuPrincipal");
+
+			} else {
+				modelAndView.addObject("usuario", new Usuario());
+				modelAndView.setViewName("errorInicioSesion");
+			}
+
+		}
+		return modelAndView;
+	}
 
 
 }
