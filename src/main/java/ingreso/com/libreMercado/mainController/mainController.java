@@ -182,10 +182,12 @@ public class mainController {
 				modelAndView.setViewName("menuPrincipal");
 
 			} else {
-				modelAndView.addObject("usuario", new Usuario());
+				
 				modelAndView.setViewName("errorInicioSesion");
 			}
 
+		}else{
+			modelAndView.setViewName("errorInicioSesion");
 		}
 		return modelAndView;
 	}
