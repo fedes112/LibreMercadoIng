@@ -79,14 +79,17 @@ public class mainController {
 
 	@RequestMapping(value= "verProductos",
 			method = RequestMethod.GET)
-	public ModelAndView mostrarProductos(){
+	public ModelAndView mostrarProductos(HttpSession session){
 
 		ModelAndView modelAndView = new ModelAndView();
 
-		modelAndView.addObject("listaDeProductos", daoProducto.findAll());
-
-		modelAndView.setViewName("verProductos");
-
+		if(null != session.getAttribute("usuario")) {
+			modelAndView.addObject("listaDeProductos", daoProducto.findAll());
+			modelAndView.setViewName("verProductos");
+		}
+		else {
+			modelAndView.setViewName("inicio");
+		}
 		return modelAndView;
 	}
 
