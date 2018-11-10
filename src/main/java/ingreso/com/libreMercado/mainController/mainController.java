@@ -49,14 +49,17 @@ public class mainController {
 
 	@RequestMapping(value= "agregarProducto",
 			method = RequestMethod.GET)
-	public ModelAndView agregarProductoGET(){
+	public ModelAndView agregarProductoGET(HttpSession session) {
 
 		ModelAndView modelAndView = new ModelAndView();
 
-		modelAndView.addObject("Producto", new Producto());
-
-		modelAndView.setViewName("agregarProducto");
-
+		if(null != session.getAttribute("usuario")) {
+			modelAndView.addObject("Producto", new Producto());
+			modelAndView.setViewName("agregarProducto");
+		}
+		else {
+			modelAndView.setViewName("inicio");
+		}
 		return modelAndView;
 
 	}
