@@ -13,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 import ingreso.com.libreMercado.model.DaoProducto;
 import ingreso.com.libreMercado.model.Producto;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class mainController {
 
@@ -170,7 +172,7 @@ public class mainController {
 	//Se verifica si un propietario existe o no en la base de datos
 	@RequestMapping(value = "verificarUsuario",
 			method = RequestMethod.POST)
-	public ModelAndView formularioInicioUsuarioPost(@ModelAttribute Usuario usuario) {
+	public ModelAndView formularioInicioUsuarioPost(@ModelAttribute Usuario usuario, HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
 
 		if (daoUsuario.exists(usuario.getDni())) {
@@ -180,6 +182,8 @@ public class mainController {
 			if (usuario.getContraseña().equals(usuario1.getContraseña())) {
 				modelAndView.addObject("usuario", usuario1);
 				modelAndView.setViewName("menuPrincipal");
+
+				session.setAttribute("usuario", usuario1);
 
 			} else {
 				
