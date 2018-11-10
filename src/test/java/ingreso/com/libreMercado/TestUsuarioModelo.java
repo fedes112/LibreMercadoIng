@@ -13,7 +13,7 @@ public class TestUsuarioModelo {
 
     @Test
     public void testeoChequeoDeUsuario(){
-        Usuario userExistente = new Usuario("Pepe","Papas");
+        Usuario userExistente = new Usuario("Pepe","Papas",410);
 
         Assert.assertTrue(userExistente.chequearUsuario("Pepe"));
         Assert.assertTrue(userExistente.chequearPassWords("Papas"));
