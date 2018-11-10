@@ -202,5 +202,16 @@ public class mainController {
 		return modelAndView;
 	}
 
+	@RequestMapping(value = "cerrarSesion",
+			method = RequestMethod.GET)
+	public ModelAndView cerrarSesionGet(HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView();
+
+		session.invalidate();
+
+		modelAndView.setViewName("inicio");
+
+		return modelAndView;
+	}
 
 }
