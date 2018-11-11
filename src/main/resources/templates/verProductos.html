@@ -27,6 +27,13 @@
 
 <h2>Lista de publicaciones </h2>
 
+<form action="verProductos" method = "get">
+    <input type = "text" th:field = "${nombreProducto}"
+           placeholder = "Ingrese el nombre " /><br/><br/>
+
+    <button type="submit" class="btn btn-dark" value= "Buscar Producto">Buscar Publicaciones </button>
+
+</form>
 
 
 <table class="table">

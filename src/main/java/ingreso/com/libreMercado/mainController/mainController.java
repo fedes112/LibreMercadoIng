@@ -13,6 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
 import ingreso.com.libreMercado.model.DaoProducto;
 import ingreso.com.libreMercado.model.Producto;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 @Controller
 public class mainController {
 
@@ -63,18 +67,18 @@ public class mainController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value= "verProductos",
-			method = RequestMethod.GET)
-	public ModelAndView mostrarProductos(){
-
-		ModelAndView modelAndView = new ModelAndView();
-
-		modelAndView.addObject("listaDeProductos", daoProducto.findAll());
-
-		modelAndView.setViewName("verProductos");
-
-		return modelAndView;
-	}
+//	@RequestMapping(value= "verProductos",
+//			method = RequestMethod.GET)
+//	public ModelAndView mostrarProductos(){
+//
+//		ModelAndView modelAndView = new ModelAndView();
+//
+//		modelAndView.addObject("listaDeProductos", daoProducto.findAll());
+//
+//		modelAndView.setViewName("verProductos");
+//
+//		return modelAndView;
+//	}
 
 	@RequestMapping(value = "/eliminarProducto",
 			method = RequestMethod.GET)
@@ -141,6 +145,33 @@ public class mainController {
 		modelAndView.addObject("usuario", new Usuario());
 
 		modelAndView.setViewName("redirect:/");
+
+		return modelAndView;
+	}
+
+
+	@RequestMapping(value= "verProductos",
+			method = RequestMethod.GET)
+	public ModelAndView mostrarProductosPorBusqueda(@RequestParam(value = "nombreProducto", required = false) String nombreProducto){
+
+		ModelAndView modelAndView = new ModelAndView();
+
+		Iterable<Producto> listaProductos ;
+		if(nombreProducto == null){
+			listaProductos  = daoProducto.findAll();
+		}else{
+			listaProductos = daoProducto.findByNombreProductoLike(nombreProducto);
+		}
+		modelAndView.addObject("listaDeProductos", listaProductos);
+//		modelAndView.addObject("listaDeProductos", daoProducto.findAll());
+
+		modelAndView.addObject("ordenTrabajos", listaProductos);
+
+
+
+
+		modelAndView.setViewName("verProductos");
+
 
 		return modelAndView;
 	}
