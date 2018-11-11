@@ -28,7 +28,7 @@
 <h2>Lista de publicaciones </h2>
 
 <form action="verProductos" method = "get">
-    <input type = "text" th:field = "${nombreProducto}"
+    <input type = "text" 
            placeholder = "Ingrese el nombre " /><br/><br/>
 
     <button type="submit" class="btn btn-dark" value= "Buscar Producto">Buscar Publicaciones </button>
@@ -62,7 +62,7 @@
 </table>
 
 
-<a th:href = "@{/}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Volver a Inicio</a>
+<a th:href = "@{/menuPrincipal}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Volver a Inicio</a>
 
 
 

@@ -35,30 +35,21 @@
 <body>
 
 <nav class="navbar navbar-dark bg-dark">
-    <h1 class="navbar-brand" href="#">Registrate</h1>
+    <h1 class="navbar-brand" href="#">Inicio De Sesion</h1>
 </nav>
 
-<form action="registrarUsuario" method = "post">
-    <label>Nombre</label> <br/>
-    <input type = "text" th:field = "${Usuario.nombreDeUsuario}"
-           placeholder = "Ingrese el nombre" /><br/><br/>
-
-    <label>Contraseña</label> <br/>
-    <input type = "text" th:field = "${Usuario.contraseña}"
-           placeHolder = "Ingresar el password"/> <br/><br/>
-
-    <label>DNI</label> <br/>
-    <input type = "number" th:field = "${Usuario.dni}"
-           placeHolder = "Ingresar el dni"/> <br/><br/>
-
-
-
-    <button type="submit" class="btn btn-dark" value= "Registrar Usuario">Registrar</button>
-
+<form action = "verificarUsuario" method = "post">
+    <label>Ingrese el nombre de Usuario</label><br/>
+    <input type = "text" th:field = "${usuario.nombreDeUsuario}"/><br/>
+    <label>Ingrese la clave de Usuario</label><br/>
+    <input type = "text" th:field = "${usuario.contraseña}"/><br/>
+    <label>Ingrese el DNI de Usuario</label><br/>
+    <input type = "number" th:field = "${usuario.dni}"/><br/>
+    <input type = "submit" value = "Verificar" class = "sub"/>
 </form>
 
 <br/>
-<button type="submit" class="btn btn-dark" value= "Registrar Usuario"><label> <a th:href= "@{/}">Inicio</a> </label></button>
+<button type="submit" class="btn btn-dark" value= "inicio"><label> <a th:href= "@{/}">Inicio</a> </label></button>
 
 </body>
 

@@ -10,8 +10,7 @@ import javax.persistence.Id;
 public class Usuario {
 
     @Id
-    @GeneratedValue
-    private int id;
+    private long dni;
 
     private String nombreDeUsuario;
     private String contraseña;
@@ -19,15 +18,12 @@ public class Usuario {
     public Usuario(){}
 
 
-    public Usuario(String nombreACrear, String contraseñaACrear){
+    public Usuario(String nombreACrear, String contraseñaACrear, long dni){
         setNombreDeUsuario(nombreACrear);
         setContraseña(contraseñaACrear);
+        setDni(dni);
     }
 
-
-    public int getId() {
-        return id;
-    }
 
     public String getContraseña() {
         return contraseña;
@@ -53,5 +49,13 @@ public class Usuario {
     public Boolean chequearPassWords(String contraseñaProveniente){
         return (this.contraseña.equals(contraseñaProveniente));
 
+    }
+
+    public long getDni() {
+        return dni;
+    }
+
+    public void setDni(long dni) {
+        this.dni = dni;
     }
 }
