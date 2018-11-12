@@ -15,6 +15,7 @@ public class Producto {
 	private float precioProducto;
 	private int cantidad;
 	private float precioPorCantidad;
+	private String imagen;
 	
 	public int getId() {
 		return id;
@@ -40,6 +41,8 @@ public class Producto {
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
+	public String getImagen() { return imagen; }
+	public void setImagen(String imagen) { this.imagen = imagen; }
 	
 	public float getPrecioPorCantidad() {
 		return precioPorCantidad;
