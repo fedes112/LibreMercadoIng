@@ -19,16 +19,29 @@
 
 </head>
 
-<body>
+
 
 <nav class="navbar navbar-dark bg-dark">
     <h1 class="navbar-brand" href="#">Lista de Publicaciones</h1>
 </nav>
 
+<br/>
+
 <h2>Lista de publicaciones </h2>
 
+<br/>
 
+<form action="verProductos" method = "get">
+    <tr>
 
+        <td scope="col">    <input type="text" id ="txt" name="nombreProducto" placeholder = "Ingrese el nombre " /></td>
+        <td scope="col">    <button type="submit" class="btn btn-dark" value= "Buscar Producto"><label> <a th:href= "@{/verProductos }">Buscar Publicaciones</a></label> </button> </td>
+
+    </tr>
+
+</form>
+
+<br/>
 <table class="table">
 
     <thead>
@@ -56,12 +69,6 @@
 
 
 <a th:href = "@{/menuPrincipal}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Volver a Inicio</a>
-
-
-
-
-</body>
-
 
 
 </html>
