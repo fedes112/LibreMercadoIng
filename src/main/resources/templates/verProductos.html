@@ -50,6 +50,7 @@
 
     <tr th:each = "p : ${listaDeProductos}" >
 
+        <td><img src="$(p.getImagen())"/></td>
         <td><p th:text = "${p.getNombreProducto()}"> </p></td>
         <td><p th:text = "${p.getPrecioProducto()}"> </p></td>
         <td><p th:text = "${p.getCantidad()}"> </p></td>
