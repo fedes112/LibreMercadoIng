@@ -28,10 +28,10 @@
 <h2>Lista de publicaciones </h2>
 
 <form action="verProductos" method = "get">
-    <input type = "text" 
-           placeholder = "Ingrese el nombre " /><br/><br/>
+    <input type="text" id ="txt" name="nombreProducto"
+           placeholder = "Ingrese el nombre " />
 
-    <button type="submit" class="btn btn-dark" value= "Buscar Producto">Buscar Publicaciones </button>
+    <button type="submit" class="btn btn-dark" value= "Buscar Producto"><label> <a th:href= "@{/verProductos }">Buscar Publicaciones</a></label> </button>
 
 </form>
 

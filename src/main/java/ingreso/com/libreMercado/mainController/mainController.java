@@ -217,7 +217,7 @@ public class mainController {
 		ModelAndView modelAndView = new ModelAndView();
 		Iterable<Producto> listaProductos ;
 		if(null != session.getAttribute("usuario")) {
-			if (nombreProducto == null) {
+			if (nombreProducto == null || nombreProducto == "") {
 				listaProductos = daoProducto.findAll();
 			} else {
 				listaProductos = daoProducto.findByNombreProductoLike(nombreProducto);
