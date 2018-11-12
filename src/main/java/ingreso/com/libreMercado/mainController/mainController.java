@@ -220,11 +220,10 @@ public class mainController {
 			if (nombreProducto == null || nombreProducto == "") {
 				listaProductos = daoProducto.findAll();
 			} else {
-				listaProductos = daoProducto.findByNombreProductoLike(nombreProducto);
+				listaProductos = daoProducto.findByNombreProductoLike("%"+nombreProducto+"%");
 			}
 			modelAndView.addObject("listaDeProductos", listaProductos);
-//		modelAndView.addObject("listaDeProductos", daoProducto.findAll());
-
+			//modelAndView.addObject("listaDeProductos", daoProducto.findAll());
 
 			modelAndView.setViewName("verProductos");
 		}
@@ -232,9 +231,7 @@ public class mainController {
 			modelAndView.setViewName("inicio");
 		}
 
-
 		return modelAndView;
 	}
-
 
 }
