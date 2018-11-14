@@ -47,6 +47,7 @@
     <thead>
     <tr>
 
+        <th scope="col">Imagen</th>
         <th scope="col">Publicacion</th>
         <th scope="col">Precio</th>
         <th scope="col">Cantidad</th>
@@ -56,9 +57,10 @@
 
     <tr th:each = "p : ${listaDeProductos}" >
 
+        <td><img th:src = "${p.getImagen()}" width="75" height="75"/> </td>
         <td><p th:text = "${p.getNombreProducto()}"> </p></td>
         <td><p th:text = "${p.getPrecioProducto()}"> </p></td>
-        <td><p th:text = "${p.getCantidad()}"> </p></td>
+        <td><p th:text = "${p.getCantidad()}"> </p> </td>
 
         <td><button type="button" class="btn btn-primary btn-sm"><label>	<a th:href = "@{/eliminarProducto(id = ${p.getId()})}" class = "sub">Elimniar Publicacion</a> </label></button></td>
         <td><button type="button" class="btn btn-primary btn-sm"><label>	<a th:href = "@{/comprarProducto(id = ${p.getId()})}" class = "sub">Comprar Publicacion</a> </label></button></td>
