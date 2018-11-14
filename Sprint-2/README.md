@@ -5,14 +5,14 @@
 2. Como Cliente quiero poder borrar una publicación propia (2 puntos)
 
 **Estimacion de tareas para el siguiente sprint:**
-1. Crear un usuario y un registro.
+1. Modelar un usuario. (2 puntos)
+2. Como Cliente quiero poder registrarme. (2 puntos)
 
 **Gráfico de velocidad para este sprint y los sprints anteriores.**
 
 ![Grafico](/Images-Sprint/Grafico.PNG)
 
-* La velocidad del sprint anterior fue de 3.
-* Para este sprint se pudieron resolver las dos user story detalladas arriba. Lo cual hace que se tenga una velocidad de 7.
+* La velocidad actual del equipo es 4.
 
 Estado del servidor de Integración Continua. (En solucion)
 

@@ -1,7 +1,7 @@
 **Sprint 1**
 
 **Lista de tareas:**
-1. Satisfacer el user story: *Como Cliente quiero poder crear una publicación.* a un bajo nivel. **(COMPLETADA - 3 puntos)**
+1. Satisfacer el user story: *Como Cliente quiero poder crear una publicación.* **(COMPLETADA - 3 puntos)**
 
 **Estimacion de tareas para el siguiente sprint:**
 1. Como Cliente quiero poder comprar productos. (2 puntos)
@@ -11,7 +11,7 @@
 
 ![Grafico](/Images-Sprint/Grafico.PNG)
 
-* La velocidad actual es 3, que pudimos resolver la primer user story que se detalla arriba. (La numero 15)
+* La velocidad actual del equipo es 3.
 
 **Retrospectiva del sprint:**
 * **High:** Seguimos tratando de mejorar los test. Ademas seguimos mejorando la funcionalidad de "Crear una publicacion".
