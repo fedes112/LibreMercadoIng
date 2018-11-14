@@ -22,7 +22,7 @@
 
 Estado del servidor de Integración Continua.
 
-![CI-1](/Sprint-4/CI-1.PNG)
+![CI-1](/Sprint-4/CI-1.jpeg)
 
 **Retrospectiva del sprint:**
 * **High:** El trabajo fue mas organizado, y pudimos llegar al objetivo propueso, ademas pudimos realizar una tarea adicional.
