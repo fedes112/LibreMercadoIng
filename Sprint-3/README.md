@@ -1,15 +1,18 @@
 **Sprint 3**
 
 **Lista de tareas:**
-1. Crear un usuario y un registro.
+1. Modelar un usuario. (2 puntos)
+2. Como Cliente quiero poder registrarme. (2 puntos)
 
 **Estimacion de tareas para el siguiente sprint:**
-1. Crear Inicio de sesion.
-2. Manejar Sesiones
+1. Como Cliente quiero poder iniciar sesión. (5 puntos)
+2. Como Cliente quiero poder buscar productos (2 puntos)
 
 **Gráfico de velocidad para este sprint y los sprints anteriores.**
 
 ![Grafico](/Images-Sprint/Grafico.PNG)
+
+* La velocidad actual del equipo es de 4.
 
 Estado del servidor de Integración Continua.
 
