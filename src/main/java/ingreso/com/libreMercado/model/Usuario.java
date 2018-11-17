@@ -2,6 +2,10 @@ package ingreso.com.libreMercado.model;
 
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -10,10 +14,11 @@ import javax.persistence.Id;
 public class Usuario {
 
     @Id
-    private long dni;
-
     private String nombreDeUsuario;
+
+    private long dni;
     private String contraseña;
+    private Boolean esAdministrador;
 
     public Usuario(){}
 
@@ -22,9 +27,16 @@ public class Usuario {
         setNombreDeUsuario(nombreACrear);
         setContraseña(contraseñaACrear);
         setDni(dni);
+
     }
 
+    public Boolean getEsAdministrador(){
+        return esAdministrador;
+    }
 
+    public void setEsAdministrador(Boolean valor){
+        this.esAdministrador = valor;
+    }
     public String getContraseña() {
         return contraseña;
     }
