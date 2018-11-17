@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 public class mainController {
@@ -27,18 +28,7 @@ public class mainController {
 	@Autowired
 	private DaoUsuario daoUsuario;
 
-	//Home
 
-
-	/*@ModelAttribute("Tags")
-	public ArrayList<String> getWebFrameworkList() {
-		ArrayList<String> webFrameworkList = new ArrayList<String>();
-		webFrameworkList.add("Computacion");
-		webFrameworkList.add("Deportes");
-		webFrameworkList.add("Ocio");
-		webFrameworkList.add("Auxilio son las 6 am");
-		return webFrameworkList;
-	}*/
 
 	@RequestMapping(value = "/",
 			method = RequestMethod.GET)
@@ -88,7 +78,6 @@ public class mainController {
 
 		producto.precioPorCantidad();
 		daoProducto.save(producto);
-
 		modelAndView.addObject("producto", new Producto());
 
 		modelAndView.setViewName("redirect:/agregarProducto.html");
@@ -238,6 +227,7 @@ public class mainController {
 			} else {
 				listaProductos = daoProducto.findByNombreProductoLike("%"+nombreProducto+"%");
 				((ArrayList<Producto>) listaProductos).addAll(daoProducto.findByTagsLike("%"+nombreProducto+"%"));
+				listaProductos = ((ArrayList<Producto>) listaProductos).stream().distinct().collect(Collectors.<Producto>toList());
 			}
 			modelAndView.addObject("listaDeProductos", listaProductos);
 			//modelAndView.addObject("listaDeProductos", daoProducto.findAll());
