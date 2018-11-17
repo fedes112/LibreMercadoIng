@@ -14,9 +14,13 @@ import ingreso.com.libreMercado.model.DaoProducto;
 import ingreso.com.libreMercado.model.Producto;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 @Controller
 public class mainController {
+
 
 	@Autowired
 	private DaoProducto daoProducto;
@@ -24,6 +28,18 @@ public class mainController {
 	private DaoUsuario daoUsuario;
 
 	//Home
+
+
+	/*@ModelAttribute("Tags")
+	public ArrayList<String> getWebFrameworkList() {
+		ArrayList<String> webFrameworkList = new ArrayList<String>();
+		webFrameworkList.add("Computacion");
+		webFrameworkList.add("Deportes");
+		webFrameworkList.add("Ocio");
+		webFrameworkList.add("Auxilio son las 6 am");
+		return webFrameworkList;
+	}*/
+
 	@RequestMapping(value = "/",
 			method = RequestMethod.GET)
 	public ModelAndView inicioGet(){
@@ -221,6 +237,7 @@ public class mainController {
 				listaProductos = daoProducto.findAll();
 			} else {
 				listaProductos = daoProducto.findByNombreProductoLike("%"+nombreProducto+"%");
+				((ArrayList<Producto>) listaProductos).addAll(daoProducto.findByTagsLike("%"+nombreProducto+"%"));
 			}
 			modelAndView.addObject("listaDeProductos", listaProductos);
 			//modelAndView.addObject("listaDeProductos", daoProducto.findAll());
