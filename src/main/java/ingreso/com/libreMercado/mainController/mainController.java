@@ -152,6 +152,7 @@ public class mainController {
 
 		ModelAndView modelAndView = new ModelAndView();
 
+		usuario.setEsAdministrador(false);
 		daoUsuario.save(usuario);
 
 		modelAndView.addObject("usuario", new Usuario());
@@ -179,12 +180,13 @@ public class mainController {
 	public ModelAndView formularioInicioUsuarioPost(@ModelAttribute Usuario usuario, HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
 
-		if (daoUsuario.exists(usuario.getDni())) {
+		if (daoUsuario.exists(usuario.getNombreDeUsuario())) {
 
-			Usuario usuario1 = daoUsuario.findOne(usuario.getDni());
+			Usuario usuario1 = daoUsuario.findOne(usuario.getNombreDeUsuario());
 
 			if (usuario.getContraseña().equals(usuario1.getContraseña())) {
 				modelAndView.addObject("usuario", usuario1);
+
 				modelAndView.setViewName("menuPrincipal");
 
 				session.setAttribute("usuario", usuario1);
