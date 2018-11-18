@@ -61,7 +61,7 @@
         <td><p th:text = "${user.getDni()}"> </p></td>
 
 
-        <td><button type="button" class="btn btn-primary btn-sm"><label>	<a th:href = "@{/IMPLEMENTAR_ELIMINAR_USUARIO(id = ${user.getDni()})}" class = "sub">Elimniar Usuario</a> </label></button></td>
+        <td><button type="button" class="btn btn-primary btn-sm"><label>	<a th:href = "@{/eliminarUsuario(id = ${user.getNombreDeUsuario()})}" class = "sub">Elimniar Usuario</a> </label></button></td>
     </tr>
 
     </tbody>

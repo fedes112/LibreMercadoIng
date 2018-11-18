@@ -48,7 +48,7 @@ public class mainController {
 				modelAndView.setViewName("menuAdmin");
 			}
 			else {
-				modelAndView.setViewName("menuAdmin");
+				modelAndView.setViewName("menuPrincipal");
 			}
 		}
 		else {
@@ -250,6 +250,58 @@ public class mainController {
 		}
 
 		return modelAndView;
+	}
+
+	@RequestMapping(value= "verUsuarios",
+			method = RequestMethod.GET)
+	public ModelAndView verUsuarios(HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView();
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
+		if(null != usuario) {
+			if(usuario.getEsAdministrador()) {
+
+				Iterable<Usuario> listaDeUsuarios = daoUsuario.findAll();
+
+				modelAndView.addObject("listaDeUsuarios", listaDeUsuarios);
+				modelAndView.setViewName("verUsuarios");
+			}
+			else {
+				modelAndView.setViewName("menuPrincipal");
+			}
+		}
+		else {
+			modelAndView.setViewName("inicio");
+		}
+
+		return modelAndView;
+	}
+
+
+	@RequestMapping(value = "/eliminarUsuario",
+			method = RequestMethod.GET)
+	public ModelAndView eliminarUsuarioGET(@RequestParam("id") String id, HttpSession session){
+
+		ModelAndView modelAndView = new ModelAndView();
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
+
+		if(null != usuario) {
+			if(usuario.getEsAdministrador()) {
+				daoUsuario.delete(id);
+
+				modelAndView.addObject("listaDeUsuarios", daoUsuario.findAll());
+				modelAndView.setViewName("verUsuarios");
+
+			}
+			else {
+				modelAndView.setViewName("menuPrincipal");
+			}
+		}
+		else {
+			modelAndView.setViewName("inicio");
+		}
+
+		return modelAndView;
+
 	}
 
 }
