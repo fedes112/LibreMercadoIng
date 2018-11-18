@@ -304,4 +304,29 @@ public class mainController {
 
 	}
 
+
+	@RequestMapping(value= "verTodosLosProductos",
+			method = RequestMethod.GET)
+	public ModelAndView verTodosLosProductos(HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView();
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
+		Iterable<Producto> listaProductos ;
+
+		if(null != usuario) {
+			if (usuario.getEsAdministrador()) {
+				modelAndView.setViewName("verTodosLosProductos");
+				listaProductos = daoProducto.findAll();
+				modelAndView.addObject("listaDeProductos", listaProductos);
+			}
+			else {
+				modelAndView.setViewName("menuPrincipal");
+			}
+		}
+		else {
+			modelAndView.setViewName("inicio");
+		}
+
+		return modelAndView;
+	}
+
 }
