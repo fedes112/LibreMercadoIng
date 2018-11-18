@@ -124,8 +124,8 @@ public class mainController {
 		Producto producto = daoProducto.findOne(id);
 
 		producto.setCantidad(producto.getCantidad() - 1);
-		daoProducto.save(producto);
 		userSes.agregarProductoAlHistorial(producto);
+		daoProducto.save(producto);
 		daoUsuario.save(userSes);
 
 		if(producto.getCantidad() <= 0) {
@@ -249,7 +249,7 @@ public class mainController {
 		ModelAndView modelAndView = new ModelAndView();
 		historial = userSes.getHistorial();
 		modelAndView.addObject("historial", historial);
-		modelAndView.setViewName("historial");
+		modelAndView.setViewName("/historial");
 
 		return modelAndView;
 	}

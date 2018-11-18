@@ -15,9 +15,8 @@ public class Usuario {
     private String nombreDeUsuario;
     private String contraseña;
 
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "prod", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
-    @org.hibernate.annotations.Cascade(value = org.hibernate.annotations.CascadeType.ALL)
     private List<Producto> historialCompra = new ArrayList<Producto>();
 
     public Usuario(){}
