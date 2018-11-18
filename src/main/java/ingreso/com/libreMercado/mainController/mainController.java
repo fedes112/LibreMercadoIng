@@ -37,11 +37,23 @@ public class mainController {
 
 	@RequestMapping(value = "/menuPrincipal",
 			method = RequestMethod.GET)
-	public ModelAndView menuPrincipalGet(){
+	public ModelAndView menuPrincipalGet(HttpSession session) {
 
 		ModelAndView modelAndView = new ModelAndView();
 
-		modelAndView.setViewName("menuPrincipal");
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
+
+		if(null != usuario) {
+			if (usuario.getEsAdministrador()) {
+				modelAndView.setViewName("menuAdmin");
+			}
+			else {
+				modelAndView.setViewName("menuAdmin");
+			}
+		}
+		else {
+			modelAndView.setViewName("inicio");
+		}
 
 		return modelAndView;
 	}
@@ -53,7 +65,9 @@ public class mainController {
 
 		ModelAndView modelAndView = new ModelAndView();
 
-		if(null != session.getAttribute("usuario")) {
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
+
+		if(null != usuario && !usuario.getEsAdministrador()) {
 			modelAndView.addObject("Producto", new Producto());
 			modelAndView.setViewName("agregarProducto");
 		}
@@ -178,6 +192,7 @@ public class mainController {
 	@RequestMapping(value = "verificarUsuario",
 			method = RequestMethod.POST)
 	public ModelAndView formularioInicioUsuarioPost(@ModelAttribute Usuario usuario, HttpSession session) {
+
 		ModelAndView modelAndView = new ModelAndView();
 
 		if (daoUsuario.exists(usuario.getNombreDeUsuario())) {
@@ -185,11 +200,11 @@ public class mainController {
 			Usuario usuario1 = daoUsuario.findOne(usuario.getNombreDeUsuario());
 
 			if (usuario.getContraseña().equals(usuario1.getContraseña())) {
-				modelAndView.addObject("usuario", usuario1);
-
-				modelAndView.setViewName("menuPrincipal");
-
 				session.setAttribute("usuario", usuario1);
+
+				modelAndView = this.menuPrincipalGet(session);
+
+				modelAndView.addObject("usuario", usuario1);
 
 			} else {
 
@@ -199,6 +214,7 @@ public class mainController {
 		}else{
 			modelAndView.setViewName("errorInicioSesion");
 		}
+
 		return modelAndView;
 	}
 
