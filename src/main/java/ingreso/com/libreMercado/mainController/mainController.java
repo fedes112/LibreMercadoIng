@@ -27,7 +27,7 @@ public class mainController {
 	private DaoProducto daoProducto;
 	@Autowired
 	private DaoUsuario daoUsuario;
-
+	private ArrayList<String> tags = new ArrayList<String>();
 
 
 	@RequestMapping(value = "/",
@@ -57,7 +57,13 @@ public class mainController {
 			method = RequestMethod.GET)
 	public ModelAndView agregarProductoGET(HttpSession session) {
 
+		tags.clear();
+		tags.add("Computacion");
+		tags.add("Deporte");
+		tags.add("Ocio");
+
 		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("listadeTags",tags);
 
 		if(null != session.getAttribute("usuario")) {
 			modelAndView.addObject("Producto", new Producto());
@@ -72,11 +78,13 @@ public class mainController {
 
 	@RequestMapping(value= "agregarProducto",
 			method = RequestMethod.POST)
-	public ModelAndView agregarProductoPOST(@ModelAttribute Producto producto){
+	public ModelAndView agregarProductoPOST(@ModelAttribute Producto producto ){
 
 		ModelAndView modelAndView = new ModelAndView();
 
 		producto.precioPorCantidad();
+
+
 		daoProducto.save(producto);
 		modelAndView.addObject("producto", new Producto());
 
