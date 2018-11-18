@@ -2,9 +2,9 @@ package ingreso.com.libreMercado.model;
 
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Usuario {
@@ -14,6 +14,10 @@ public class Usuario {
 
     private String nombreDeUsuario;
     private String contraseña;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "prod", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
+    private List<Producto> historialCompra = new ArrayList<Producto>();
 
     public Usuario(){}
 
@@ -49,6 +53,14 @@ public class Usuario {
     public Boolean chequearPassWords(String contraseñaProveniente){
         return (this.contraseña.equals(contraseñaProveniente));
 
+    }
+
+    public void agregarProductoAlHistorial(Producto producto){
+        this.historialCompra.add(producto);
+    }
+
+    public List<Producto> getHistorial(){
+        return this.historialCompra;
     }
 
     public long getDni() {

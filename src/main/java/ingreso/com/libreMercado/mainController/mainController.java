@@ -14,6 +14,8 @@ import ingreso.com.libreMercado.model.DaoProducto;
 import ingreso.com.libreMercado.model.Producto;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class mainController {
@@ -112,15 +114,19 @@ public class mainController {
 
 	@RequestMapping(value = "/comprarProducto",
 			method = RequestMethod.GET)
-	public ModelAndView comprarProductoGET(@RequestParam("id") int id){
+	public ModelAndView comprarProductoGET(HttpSession session ,@RequestParam("id") int id){
 		//Producto producto  = daoProducto.findOne(id);
+
+		Usuario userSes = (Usuario) session.getAttribute("usuario");
 
 		ModelAndView modelAndView = new ModelAndView();
 
 		Producto producto = daoProducto.findOne(id);
 
 		producto.setCantidad(producto.getCantidad() - 1);
+		userSes.agregarProductoAlHistorial(producto);
 		daoProducto.save(producto);
+		daoUsuario.save(userSes);
 
 		if(producto.getCantidad() <= 0) {
 			daoProducto.delete(id);
@@ -230,6 +236,20 @@ public class mainController {
 		else {
 			modelAndView.setViewName("inicio");
 		}
+
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/historial",
+			method = RequestMethod.GET)
+	public ModelAndView historialGet(HttpSession session){
+
+		Usuario userSes = (Usuario) session.getAttribute("usuario");
+		List<Producto> historial ;
+		ModelAndView modelAndView = new ModelAndView();
+		historial = userSes.getHistorial();
+		modelAndView.addObject("historial", historial);
+		modelAndView.setViewName("/historial");
 
 		return modelAndView;
 	}
