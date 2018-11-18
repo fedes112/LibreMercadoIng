@@ -10,6 +10,7 @@ import java.util.List;
 public class Usuario {
 
     @Id
+    @Column(length = 190)
     private String nombreDeUsuario;
 
     private long dni;

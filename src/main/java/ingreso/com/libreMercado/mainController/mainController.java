@@ -258,7 +258,6 @@ public class mainController {
 		return modelAndView;
 	}
 
-<<<<<<< HEAD
 	@RequestMapping(value= "verUsuarios",
 			method = RequestMethod.GET)
 	public ModelAndView verUsuarios(HttpSession session) {
