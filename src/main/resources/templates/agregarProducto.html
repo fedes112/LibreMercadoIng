@@ -55,6 +55,16 @@
 	<input type = "text" th:field = "${Producto.imagen}"
 		   placeHolder = "Ingresar link de imagen"/> <br/><br/>
 
+
+	<label>Elegir una categoria</label> <br/>
+	<select path="Tags" th:field = "${Producto.tags}">
+		<tr th:each = "t : ${listadeTags}" >
+
+			<option th:text = "${t}"><p th:text = "${t}"> </p></option>
+		</tr>
+	</select>
+
+
 	<button type="submit" class="btn btn-dark" value= "Agregar Producto">Agregar Publicacion</button>	
 
 </form>
