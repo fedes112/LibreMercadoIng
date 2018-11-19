@@ -3,6 +3,7 @@ package ingreso.com.libreMercado.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.ArrayList;
 
 @Entity
@@ -19,6 +20,8 @@ public class Producto {
 	private String imagen;
 	private String tags;
 
+	@ManyToOne
+	private Usuario owner;
 
 	public int getId() {
 		return id;
