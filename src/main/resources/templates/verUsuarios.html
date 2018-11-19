@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> </link>
+    <title>	Formulario Publicacion </title>
+
+    <style type="text/css">
+
+        a:link {
+            text-decoration: none;
+        }
+
+        a{
+            color: white;
+        }
+
+    </style>
+
+</head>
+
+
+
+<nav class="navbar navbar-dark bg-dark">
+    <h1 class="navbar-brand" href="#">Lista de Publicaciones en el sistema</h1>
+</nav>
+
+<br/>
+
+<h2>Lista de publicaciones </h2>
+
+<br/>
+
+<form action="verProductos" method = "get">
+    <tr>
+
+        <td scope="col">    <input type="text" id ="txt" name="nombreProducto" placeholder = "Ingrese el nombre " /></td>
+        <td scope="col">    <button type="submit" class="btn btn-dark" value= "Buscar Producto"><label> <a th:href= "@{/verProductos }">Buscar Publicaciones</a></label> </button> </td>
+
+    </tr>
+
+</form>
+
+<br/>
+<table class="table">
+
+    <thead>
+    <tr>
+
+        <th scope="col">Nombre</th>
+        <th scope="col">DNI</th>
+
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each = "user : ${listaDeUsuarios}" >
+
+
+        <td><p th:text = "${user.getNombreDeUsuario()}"> </p></td>
+        <td><p th:text = "${user.getDni()}"> </p></td>
+
+
+        <td><button type="button" class="btn btn-primary btn-sm"><label>	<a th:href = "@{/eliminarUsuario(id = ${user.getNombreDeUsuario()})}" class = "sub">Elimniar Usuario</a> </label></button></td>
+    </tr>
+
+    </tbody>
+</table>
+
+
+<a th:href = "@{/menuPrincipal}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Volver a Inicio</a>
+
+
+</html>

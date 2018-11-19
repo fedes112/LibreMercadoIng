@@ -1,7 +1,7 @@
 package ingreso.com.libreMercado.model;
 
-
-
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,10 +10,12 @@ import java.util.List;
 public class Usuario {
 
     @Id
-    private long dni;
-
+    @Column(length = 190)
     private String nombreDeUsuario;
+
+    private long dni;
     private String contraseña;
+    private Boolean esAdministrador;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "prod", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
@@ -26,9 +28,16 @@ public class Usuario {
         setNombreDeUsuario(nombreACrear);
         setContraseña(contraseñaACrear);
         setDni(dni);
+
     }
 
+    public Boolean getEsAdministrador(){
+        return esAdministrador;
+    }
 
+    public void setEsAdministrador(Boolean valor){
+        this.esAdministrador = valor;
+    }
     public String getContraseña() {
         return contraseña;
     }
