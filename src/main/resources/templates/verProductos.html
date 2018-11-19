@@ -51,6 +51,7 @@
         <th scope="col">Publicacion</th>
         <th scope="col">Precio</th>
         <th scope="col">Cantidad</th>
+        <th scope="col">Tags</th>
     </tr>
     </thead>
     <tbody>
@@ -61,6 +62,7 @@
         <td><p th:text = "${p.getNombreProducto()}"> </p></td>
         <td><p th:text = "${p.getPrecioProducto()}"> </p></td>
         <td><p th:text = "${p.getCantidad()}"> </p> </td>
+        <td><p th:text = "${p.getTags()}"> </p> </td>
 
         <td><button type="button" class="btn btn-primary btn-sm"><label>	<a th:href = "@{/eliminarProducto(id = ${p.getId()})}" class = "sub">Eliminar Publicacion</a> </label></button></td>
         <td><button type="button" class="btn btn-primary btn-sm"><label>	<a th:href = "@{/comprarProducto(id = ${p.getId()})}" class = "sub">Comprar Publicacion</a> </label></button></td>

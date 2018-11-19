@@ -16,16 +16,20 @@ import ingreso.com.libreMercado.model.Producto;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Controller
 public class mainController {
+
 
 	@Autowired
 	private DaoProducto daoProducto;
 	@Autowired
 	private DaoUsuario daoUsuario;
+	private ArrayList<String> tags = new ArrayList<String>();
 
-	//Home
+
 	@RequestMapping(value = "/",
 			method = RequestMethod.GET)
 	public ModelAndView inicioGet(){
@@ -53,7 +57,13 @@ public class mainController {
 			method = RequestMethod.GET)
 	public ModelAndView agregarProductoGET(HttpSession session) {
 
+		tags.clear();
+		tags.add("Computacion");
+		tags.add("Deporte");
+		tags.add("Ocio");
+
 		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("listadeTags",tags);
 
 		if(null != session.getAttribute("usuario")) {
 			modelAndView.addObject("Producto", new Producto());
@@ -68,13 +78,14 @@ public class mainController {
 
 	@RequestMapping(value= "agregarProducto",
 			method = RequestMethod.POST)
-	public ModelAndView agregarProductoPOST(@ModelAttribute Producto producto){
+	public ModelAndView agregarProductoPOST(@ModelAttribute Producto producto ){
 
 		ModelAndView modelAndView = new ModelAndView();
 
 		producto.precioPorCantidad();
-		daoProducto.save(producto);
 
+
+		daoProducto.save(producto);
 		modelAndView.addObject("producto", new Producto());
 
 		modelAndView.setViewName("redirect:/agregarProducto.html");
@@ -227,6 +238,8 @@ public class mainController {
 				listaProductos = daoProducto.findAll();
 			} else {
 				listaProductos = daoProducto.findByNombreProductoLike("%"+nombreProducto+"%");
+				((ArrayList<Producto>) listaProductos).addAll(daoProducto.findByTagsLike("%"+nombreProducto+"%"));
+				listaProductos = ((ArrayList<Producto>) listaProductos).stream().distinct().collect(Collectors.<Producto>toList());
 			}
 			modelAndView.addObject("listaDeProductos", listaProductos);
 			//modelAndView.addObject("listaDeProductos", daoProducto.findAll());
