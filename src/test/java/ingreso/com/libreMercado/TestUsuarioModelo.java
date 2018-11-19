@@ -49,7 +49,7 @@ public class TestUsuarioModelo {
     public void testSeRealizaUnaPublicacion() {
         daoUsuario.save(user);
         Producto computadora_Asus = new Producto("Computadora Asus", 1000, 5, null);
-
+        computadora_Asus.setOwner(user);
         daoProducto.save(computadora_Asus);
 
         Assert.assertTrue(daoProducto.existsByNombreProducto("Computadora Asus"));
