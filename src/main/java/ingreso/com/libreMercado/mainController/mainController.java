@@ -16,6 +16,7 @@ import ingreso.com.libreMercado.model.Producto;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -92,12 +93,14 @@ public class mainController {
 
 	@RequestMapping(value= "agregarProducto",
 			method = RequestMethod.POST)
-	public ModelAndView agregarProductoPOST(@ModelAttribute Producto producto ){
+	public ModelAndView agregarProductoPOST(@ModelAttribute Producto producto, HttpSession session){
 
 		ModelAndView modelAndView = new ModelAndView();
 
 		producto.precioPorCantidad();
+		producto.setOwner((Usuario) session.getAttribute("usuario"));
 
+		System.out.println("------------------------------------------------ Usuario: " + ((Usuario) session.getAttribute("usuario")).getNombreDeUsuario());
 
 		daoProducto.save(producto);
 		modelAndView.addObject("producto", new Producto());
@@ -106,20 +109,6 @@ public class mainController {
 
 		return modelAndView;
 	}
-
-//	@RequestMapping(value= "verProductos",
-//			method = RequestMethod.GET)
-//	public ModelAndView mostrarProductos(){
-//
-//		ModelAndView modelAndView = new ModelAndView();
-//
-//		modelAndView.addObject("listaDeProductos", daoProducto.findAll());
-//
-//		modelAndView.setViewName("verProductos");
-//
-//		return modelAndView;
-//	}
-
 
 	@RequestMapping(value = "/eliminarProducto",
 			method = RequestMethod.GET)
