@@ -70,7 +70,13 @@ public class Producto {
 		
 		this.precioPorCantidad = precioFinal;
 	}
-	
 
-	
+	public Usuario getOwner() {
+		return this.owner;
+	}
+
+	public void setOwner(Usuario usuario) {
+		this.owner = usuario;
+	}
+
 }
