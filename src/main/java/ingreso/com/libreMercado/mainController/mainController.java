@@ -43,11 +43,23 @@ public class mainController {
 
 	@RequestMapping(value = "/menuPrincipal",
 			method = RequestMethod.GET)
-	public ModelAndView menuPrincipalGet(){
+	public ModelAndView menuPrincipalGet(HttpSession session) {
 
 		ModelAndView modelAndView = new ModelAndView();
 
-		modelAndView.setViewName("menuPrincipal");
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
+
+		if(null != usuario) {
+			if (usuario.getEsAdministrador()) {
+				modelAndView.setViewName("menuAdmin");
+			}
+			else {
+				modelAndView.setViewName("menuPrincipal");
+			}
+		}
+		else {
+			modelAndView.setViewName("inicio");
+		}
 
 		return modelAndView;
 	}
@@ -65,7 +77,9 @@ public class mainController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("listadeTags",tags);
 
-		if(null != session.getAttribute("usuario")) {
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
+
+		if(null != usuario && !usuario.getEsAdministrador()) {
 			modelAndView.addObject("Producto", new Producto());
 			modelAndView.setViewName("agregarProducto");
 		}
@@ -169,6 +183,7 @@ public class mainController {
 
 		ModelAndView modelAndView = new ModelAndView();
 
+		usuario.setEsAdministrador(false);
 		daoUsuario.save(usuario);
 
 		modelAndView.addObject("usuario", new Usuario());
@@ -194,17 +209,19 @@ public class mainController {
 	@RequestMapping(value = "verificarUsuario",
 			method = RequestMethod.POST)
 	public ModelAndView formularioInicioUsuarioPost(@ModelAttribute Usuario usuario, HttpSession session) {
+
 		ModelAndView modelAndView = new ModelAndView();
 
-		if (daoUsuario.exists(usuario.getDni())) {
+		if (daoUsuario.exists(usuario.getNombreDeUsuario())) {
 
-			Usuario usuario1 = daoUsuario.findOne(usuario.getDni());
+			Usuario usuario1 = daoUsuario.findOne(usuario.getNombreDeUsuario());
 
 			if (usuario.getContraseña().equals(usuario1.getContraseña())) {
-				modelAndView.addObject("usuario", usuario1);
-				modelAndView.setViewName("menuPrincipal");
-
 				session.setAttribute("usuario", usuario1);
+
+				modelAndView = this.menuPrincipalGet(session);
+
+				modelAndView.addObject("usuario", usuario1);
 
 			} else {
 
@@ -214,6 +231,7 @@ public class mainController {
 		}else{
 			modelAndView.setViewName("errorInicioSesion");
 		}
+
 		return modelAndView;
 	}
 
@@ -245,6 +263,83 @@ public class mainController {
 			//modelAndView.addObject("listaDeProductos", daoProducto.findAll());
 
 			modelAndView.setViewName("verProductos");
+		}
+		else {
+			modelAndView.setViewName("inicio");
+		}
+
+		return modelAndView;
+	}
+
+	@RequestMapping(value= "verUsuarios",
+			method = RequestMethod.GET)
+	public ModelAndView verUsuarios(HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView();
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
+		if(null != usuario) {
+			if(usuario.getEsAdministrador()) {
+
+				Iterable<Usuario> listaDeUsuarios = daoUsuario.findAll();
+
+				modelAndView.addObject("listaDeUsuarios", listaDeUsuarios);
+				modelAndView.setViewName("verUsuarios");
+			}
+			else {
+				modelAndView.setViewName("menuPrincipal");
+			}
+		}
+		else {
+			modelAndView.setViewName("inicio");
+		}
+
+		return modelAndView;
+	}
+
+
+	@RequestMapping(value = "/eliminarUsuario",
+			method = RequestMethod.GET)
+	public ModelAndView eliminarUsuarioGET(@RequestParam("id") String id, HttpSession session){
+
+		ModelAndView modelAndView = new ModelAndView();
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
+
+		if(null != usuario) {
+			if(usuario.getEsAdministrador()) {
+				daoUsuario.delete(id);
+
+				modelAndView.addObject("listaDeUsuarios", daoUsuario.findAll());
+				modelAndView.setViewName("verUsuarios");
+
+			}
+			else {
+				modelAndView.setViewName("menuPrincipal");
+			}
+		}
+		else {
+			modelAndView.setViewName("inicio");
+		}
+
+		return modelAndView;
+
+	}
+
+
+	@RequestMapping(value= "verTodosLosProductos",
+			method = RequestMethod.GET)
+	public ModelAndView verTodosLosProductos(HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView();
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
+		Iterable<Producto> listaProductos ;
+
+		if(null != usuario) {
+			if (usuario.getEsAdministrador()) {
+				modelAndView.setViewName("verTodosLosProductos");
+				listaProductos = daoProducto.findAll();
+				modelAndView.addObject("listaDeProductos", listaProductos);
+			}
+			else {
+				modelAndView.setViewName("menuPrincipal");
+			}
 		}
 		else {
 			modelAndView.setViewName("inicio");
