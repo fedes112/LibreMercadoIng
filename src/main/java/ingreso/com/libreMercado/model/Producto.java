@@ -19,6 +19,17 @@ public class Producto {
 	private String imagen;
 	private String tags;
 
+	public Producto(String nombreProducto, float precioPorCantidad, int cantidad, String imagen) {
+		this.nombreProducto = nombreProducto;
+		this.precioPorCantidad = precioPorCantidad;
+		this.cantidad = cantidad;
+		this.imagen = imagen;
+
+	}
+
+	public Producto() {
+
+	}
 
 	public int getId() {
 		return id;
