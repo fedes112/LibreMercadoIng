@@ -362,4 +362,19 @@ public class mainController {
 		return modelAndView;
 	}
 
+
+	@RequestMapping(value= "/verProductosCreados",
+			method = RequestMethod.GET)
+	public ModelAndView mostrarProductos(HttpSession session){
+
+		Usuario userSes = (Usuario) session.getAttribute("usuario");
+		List<Producto> listaProductos ;
+		ModelAndView modelAndView = new ModelAndView();
+		listaProductos = userSes.getProductosCreados();
+		modelAndView.addObject("listaDeProductosCreadosPorUsuario", listaProductos);
+		modelAndView.setViewName("/verProductosCreados");
+
+		return modelAndView;
+	}
+
 }
