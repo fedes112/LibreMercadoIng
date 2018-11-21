@@ -18,7 +18,7 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-    <title>Iniciar sesion - Libre Mercado</title>
+    <title>Registro - Libre Mercado</title>
 
     <style type="text/css">
         /*
@@ -30,7 +30,7 @@
          */
 
         body, html{
-             height: 100%;
+            height: 100%;
             background-repeat: no-repeat;
             background-color: #F0E68C;
             font-family: 'Oxygen', sans-serif;
@@ -98,36 +98,108 @@
 </head>
 
 <body>
-<div class="container">
-    <div class="row main">
-        <div class="panel-heading">
-            <div class="panel-title text-center">
-                <h1 class="title">Libre Mercado</h1>
-                <hr />
-                <h1>El usuario no existe o los datos son incorrectos. Intentelo nuevamente.</h1><br/><br/>
-                <hr />
-            </div>
-        </div>
+<div class="container" style="width:45%; margin:0 auto; float:center;">
 
-            <div class="main-login main-center">
-            <form class="form-horizontal" method="post" action="verificarUsuario">
+    <div class="panel-heading">
+        <div class="panel-title text-center">
+            <h1 class="title">Libre Mercado</h1>
+            <hr />
+        </div>
+    </div>
+
+    <div class="row main" style="width:50%; margin:0 auto; float:left;">
+        <div class="main-login main-center">
+            <form class="form-horizontal" method="post" action="registrarUsuario">
 
                 <div class="form-group">
-                    <label for="username" class="cols-sm-2 control-label">Nombre de usuario</label>
+                    <label for="name" class="cols-sm-2 control-label">Nombre completo</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="username" id="username"  th:field = "${usuario.nombreDeUsuario}"  placeholder="Nombre de usuario"/>
+                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="name" id="name" placeholder="Nombre completo"/>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="password" class="cols-sm-2 control-label">Contraseña</label>
+                    <label for="email" class="cols-sm-2 control-label">Email</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="email" id="email"  placeholder="Email"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="name" class="cols-sm-2 control-label">DNI</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="dni" id="dni" th:field = "${usuario.dni}" placeholder="DNI"/>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="usernameRegister" class="cols-sm-2 control-label">Nombre de usuario</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="usernameRegister" id="usernameRegister"  th:field = "${usuario.nombreDeUsuario}"  placeholder="Nombre de usuario"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="passwordRegister" class="cols-sm-2 control-label">Contraseña</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                            <input type="password" class="form-control" name="password" id="password"  th:field = "${usuario.contraseña}"  placeholder="Contraseña"/>
+                            <input type="password" class="form-control" name="passwordRegister" id="passwordRegister"  th:field = "${usuario.contraseña}"  placeholder="Contraseña"/>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group ">
+                    <input type = "submit" value = "Registrar" class = "btn btn-primary btn-lg btn-block login-button"/>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row main" style="width:50%; margin:0; float:right;">
+
+        <div class="main-login main-center">
+
+            <div class="panel-heading">
+                <div class="panel-title text-center">
+                    <h3>El usuario no existe o los datos son incorrectos.</h3>
+                    <h3>Intentelo nuevamente.</h3>
+                    <hr />
+                </div>
+            </div>
+
+            <form class="form-horizontal" method="post" action="verificarUsuario">
+
+                <div class="form-group">
+                    <label for="usernameLogin" class="cols-sm-2 control-label">Nombre de usuario</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="usernameLogin" id="usernameLogin"  th:field = "${usuario.nombreDeUsuario}"  placeholder="Nombre de usuario"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="passwordLogin" class="cols-sm-2 control-label">Contraseña</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <input type="password" class="form-control" name="passwordLogin" id="passwordLogin"  th:field = "${usuario.contraseña}"  placeholder="Contraseña"/>
                         </div>
                     </div>
                 </div>
@@ -135,9 +207,6 @@
 
                 <div class="form-group ">
                     <input type = "submit" value = "Iniciar sesion" class = "btn btn-primary btn-lg btn-block login-button"/>
-                </div>
-                <div class="login-register">
-                    <a th:href= "@{/registrarUsuario}">Registrarse</a>
                 </div>
             </form>
         </div>
@@ -147,4 +216,3 @@
 <script type="text/javascript" src="assets/js/bootstrap.js"></script>
 </body>
 </html>
-
