@@ -49,17 +49,15 @@
    		
    	<label>Cantidad</label> <br/>
    		<input type = "number" th:field = "${Producto.cantidad}"
-   		placeHolder = "Ingresar cantidad"/> mmm<br/><br/>
+   		placeHolder = "Ingresar cantidad"/> <br/><br/>
 
 	<label>Imagen</label> <br/>
 	<input type = "text" th:field = "${Producto.imagen}"
 		   placeHolder = "Ingresar link de imagen"/> <br/><br/>
 
-
 	<label>Elegir una categoria</label> <br/>
 	<select path="Tags" th:field = "${Producto.tags}">
 		<tr th:each = "t : ${listadeTags}" >
-
 			<option th:text = "${t}"><p th:text = "${t}"> </p></option>
 		</tr>
 	</select>

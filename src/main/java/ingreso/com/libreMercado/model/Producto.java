@@ -1,8 +1,6 @@
 package ingreso.com.libreMercado.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 
 @Entity
@@ -19,6 +17,24 @@ public class Producto {
 	private String imagen;
 	private String tags;
 
+	public Producto(String nombreProducto, float precioPorCantidad, int cantidad, String imagen) {
+		this.nombreProducto = nombreProducto;
+		this.precioPorCantidad = precioPorCantidad;
+		this.cantidad = cantidad;
+		this.imagen = imagen;
+
+	}
+
+	public Producto() {
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "vendedor", referencedColumnName = "nombreDeUsuario", updatable = false)
+	private Usuario owner;
+
+	public Producto(Usuario owner) {
+		this.owner = owner;
+	}
 
 	public int getId() {
 		return id;
@@ -67,7 +83,13 @@ public class Producto {
 		
 		this.precioPorCantidad = precioFinal;
 	}
-	
 
-	
+	public Usuario getOwner() {
+		return this.owner;
+	}
+
+	public void setOwner(Usuario owner) {
+		this.owner = owner;
+	}
+
 }

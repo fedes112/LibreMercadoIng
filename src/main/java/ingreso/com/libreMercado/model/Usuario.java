@@ -59,7 +59,7 @@ public class Usuario {
 
     }
 
-    public Boolean chequearPassWords(String contraseñaProveniente){
+    public Boolean chequearPassWord(String contraseñaProveniente){
         return (this.contraseña.equals(contraseñaProveniente));
 
     }
