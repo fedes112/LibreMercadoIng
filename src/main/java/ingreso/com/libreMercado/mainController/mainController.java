@@ -61,7 +61,7 @@ public class mainController {
 			}
 		}
 		else {
-			modelAndView.setViewName("inicio");
+			modelAndView = this.inicioGet(session);
 		}
 
 		return modelAndView;
@@ -87,7 +87,7 @@ public class mainController {
 			modelAndView.setViewName("agregarProducto");
 		}
 		else {
-			modelAndView.setViewName("inicio");
+			modelAndView = this.inicioGet(session);
 		}
 		return modelAndView;
 
@@ -253,7 +253,7 @@ public class mainController {
 			modelAndView.setViewName("verProductos");
 		}
 		else {
-			modelAndView.setViewName("inicio");
+			modelAndView = this.inicioGet(session);
 		}
 
 		return modelAndView;
@@ -277,7 +277,7 @@ public class mainController {
 			}
 		}
 		else {
-			modelAndView.setViewName("inicio");
+			modelAndView = this.inicioGet(session);
 		}
 
 		return modelAndView;
@@ -304,7 +304,7 @@ public class mainController {
 			}
 		}
 		else {
-			modelAndView.setViewName("inicio");
+			modelAndView = this.inicioGet(session);
 		}
 
 		return modelAndView;
@@ -330,7 +330,7 @@ public class mainController {
 			}
 		}
 		else {
-			modelAndView.setViewName("inicio");
+			modelAndView = this.inicioGet(session);
 		}
 
 		return modelAndView;
