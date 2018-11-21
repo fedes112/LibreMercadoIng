@@ -1,60 +1,146 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> </link>
-    <title>		Formulario de Registro	</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css"/>
+
+    <!-- Website CSS style -->
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css"/>
+
+    <!-- Website Font style -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"/>
+
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'/>
+    <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'/>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"/>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <title>Iniciar sesion - Libre Mercado</title>
 
     <style type="text/css">
-        body {
-            color: purple;
-            background-color: #00FFFF }
+        /*
+        /* Created by Filipe Pina
+         * Specific styles of signin, register, component
+         */
+        /*
+         * General styles
+         */
 
-        a:link {
-            text-decoration: none;
+        body, html{
+             height: 100%;
+            background-repeat: no-repeat;
+            background-color: #F0E68C;
+            font-family: 'Oxygen', sans-serif;
         }
 
-        a{
-            color: white;
+        .main{
+            margin-top: 70px;
         }
 
-        h1{
-            text-align: center;
+        h1.title {
+            font-size: 50px;
+            font-family: 'Passion One', cursive;
+            font-weight: 400;
+        }
+
+        hr{
+            width: 10%;
+            color: #fff;
+        }
+
+        .form-group{
+            margin-bottom: 15px;
         }
 
         label{
-            color: black;
-            font-family: inherit;
-            font-weight 600;
+            margin-bottom: 15px;
         }
 
+        input,
+        input::-webkit-input-placeholder {
+            font-size: 11px;
+            padding-top: 3px;
+        }
+
+        .main-login{
+            background-color: #fff;
+            /* shadows and rounded borders */
+            -moz-border-radius: 2px;
+            -webkit-border-radius: 2px;
+            border-radius: 2px;
+            -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+            -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+
+        }
+
+        .main-center{
+            margin-top: 30px;
+            margin: 0 auto;
+            max-width: 330px;
+            padding: 40px 40px;
+
+        }
+
+        .login-button{
+            margin-top: 5px;
+        }
+
+        .login-register{
+            font-size: 11px;
+            text-align: center;
+        }
     </style>
 
 </head>
 
 <body>
+<div class="container">
+    <div class="row main">
+        <div class="panel-heading">
+            <div class="panel-title text-center">
+                <h1 class="title">Libre Mercado</h1>
+                <hr />
+            </div>
+        </div>
+        <div class="main-login main-center">
+            <form class="form-horizontal" method="post" action="verificarUsuario">
 
-<nav class="navbar navbar-dark bg-dark">
-    <h1 class="navbar-brand" href="#">Inicio De Sesion</h1>
-</nav>
-<div>
-<form action = "verificarUsuario" method = "post">
-    <label>Ingrese el nombre de Usuario</label><br/>
-    <input type = "text" th:field = "${usuario.nombreDeUsuario}"/><br/>
-    <label>Ingrese la clave de Usuario</label><br/>
-    <input type = "password" th:field = "${usuario.contraseña}"/><br/>
-    <label>Ingrese el DNI de Usuario</label><br/>
-    <input type = "number" th:field = "${usuario.dni}"/><br/>
-    <br/>
-    <input type = "submit" value = "Verificar" class = "btn btn-dark"/>
-</form>
+                <div class="form-group">
+                    <label for="username" class="cols-sm-2 control-label">Nombre de usuario</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="username" id="username"  th:field = "${usuario.nombreDeUsuario}"  placeholder="Nombre de usuario"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="cols-sm-2 control-label">Contraseña</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <input type="password" class="form-control" name="password" id="password"  th:field = "${usuario.contraseña}"  placeholder="Contraseña"/>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group ">
+                    <input type = "submit" value = "Iniciar sesion" class = "btn btn-primary btn-lg btn-block login-button"/>
+                </div>
+                <div class="login-register">
+                    <a th:href= "@{/registrarUsuario}">Registrarse</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
-<br/>
-<button type="submit" class="btn btn-dark" value= "inicio"><label> <a th:href= "@{/}">Inicio</a> </label></button>
-
+<script type="text/javascript" src="assets/js/bootstrap.js"></script>
 </body>
-
-
-
 </html>

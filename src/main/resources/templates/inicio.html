@@ -1,27 +1,152 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> </link>
-    <title>Libre Mercado</title>
-    <link rel="stylesheet" type="text/css" href="style.css"></link>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css"/>
+
+    <!-- Website CSS style -->
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css"/>
+
+    <!-- Website Font style -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"/>
+
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'/>
+    <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'/>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"/>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <title>Iniciar sesion - Libre Mercado</title>
+
+    <style type="text/css">
+        /*
+        /* Created by Filipe Pina
+         * Specific styles of signin, register, component
+         */
+        /*
+         * General styles
+         */
+
+        body, html{
+             height: 100%;
+            background-repeat: no-repeat;
+            background-color: #F0E68C;
+            font-family: 'Oxygen', sans-serif;
+        }
+
+        h1.title {
+            font-size: 50px;
+            font-family: 'Passion One', cursive;
+            font-weight: 400;
+        }
+
+        body .container {
+          width: 850px;
+          margin: 70px auto 0px auto;
+          text-align: center;
+        }
+        body .container h1 {
+          font-family: 'Droid Serif', serif;
+          font-weight: 400;
+          font-style: normal;
+          font-size: 30px;
+          margin-bottom: 30px;
+        }
+        body .container h1 span {
+          font-weight: 700;
+          font-style: italic;
+          color: #D90368;
+          border-bottom: 2px dashed currentColor;
+        }
+        body .container .button-effect {
+          padding: 30px 0px;
+        }
+        body .container .button-effect h2 {
+          font-family: 'Droid Serif', serif;
+          font-size: 20px;
+          margin-bottom: 40px;
+        }
+        body .container .button-effect a {
+          margin-right: 17px;
+          background-color: #696969;
+        }
+
+        .effect {
+          text-align: center;
+          display: inline-block;
+          position: relative;
+          text-decoration: none;
+          color: #fff;
+          text-transform: capitalize;
+          /* background-color: - add your own background-color */
+          font-family: 'Roboto', sans-serif;
+          /* put your font-family */
+          font-size: 18px;
+          padding: 20px 0px;
+          width: 150px;
+          border-radius: 6px;
+          overflow: hidden;
+        }
+
+        .effect.effect-1 {
+          -webkit-transition: all 0.2s linear 0s;
+          transition: all 0.2s linear 0s;
+        }
+
+        .effect.effect-1:before {
+          content: "\f054";
+          font-family: FontAwesome;
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-align: center;
+              -ms-flex-align: center;
+                  align-items: center;
+          -webkit-box-pack: center;
+              -ms-flex-pack: center;
+                  justify-content: center;
+          position: absolute;
+          top: 0;
+          left: 0px;
+          height: 100%;
+          width: 30px;
+          background-color: rgba(255, 255, 255, 0.3);
+          border-radius: 0 50% 50% 0;
+          -webkit-transform: scale(0, 1);
+                  transform: scale(0, 1);
+          -webkit-transform-origin: left center;
+                  transform-origin: left center;
+          -webkit-transition: all 0.2s linear 0s;
+          transition: all 0.2s linear 0s;
+        }
+        .effect.effect-1:hover {
+          text-indent: 30px;
+        }
+        .effect.effect-1:hover:before {
+          -webkit-transform: scale(1, 1);
+                  transform: scale(1, 1);
+          text-indent: 0;
+        }
+    </style>
 
 </head>
 
 <body>
 
-<nav class="navbar navbar-dark bg-dark">
-    <h1 class="navbar-brand" href="#">Libre Mercado</h1>
-</nav>
+<div class="container">
 
-<br/>
-<!-- El "agregarProducto" hace referencia al HTML -->
-<a th:href ="inicioSesion" class="btn btn-block btn-primary btn-lg active" role="button" aria-pressed="true">Iniciar Sesion</a>
-<br/>
+    <h1 class="title">Libre Mercado</h1>
 
-<a th:href ="registrarUsuario" class="btn btn-block btn-primary btn-lg active" role="button" aria-pressed="true">Registrate</a>
+    <div class="button-effect">
+        <a class="effect effect-1" href="#" title="Learn More">Registrarse</a>
+        <a class="effect effect-1" href="#" title="Learn More">Iniciar Sesion</a>
+    </div>
 
+</div>
+
+
+<script type="text/javascript" src="assets/js/bootstrap.js"></script>
 </body>
-
-
 </html>

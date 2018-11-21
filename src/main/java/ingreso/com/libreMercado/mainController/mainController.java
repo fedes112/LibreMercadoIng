@@ -37,7 +37,9 @@ public class mainController {
 
 		ModelAndView modelAndView = new ModelAndView();
 
-		modelAndView.setViewName("inicio");
+		modelAndView.addObject("Usuario", new Usuario());
+
+		modelAndView.setViewName("registrarUsuario");
 
 		return modelAndView;
 	}
