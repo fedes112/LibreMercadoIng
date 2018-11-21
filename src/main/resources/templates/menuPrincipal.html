@@ -1,34 +1,106 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-  <head>
-  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> </link>
-    <title>Libre Mercado</title>  
-   <link rel="stylesheet" type="text/css" href="style.css"></link>
-          
-  </head>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> </link>
+	<title>Libre Mercado</title>
+	<link rel="stylesheet" type="text/css" href="style.css"></link>
+
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"/>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"/>
+
+	<!-- Compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+	<style type="text/css">
+		body, html{
+			height: 100%;
+			background-repeat: no-repeat;
+			background-color: #F0E68C;
+			font-family: 'Oxygen', sans-serif;
+		}
+
+		h1.title {
+            font-size: 35px;
+            font-family: 'Passion One', cursive;
+            font-weight: 400;
+            font-color: #F0E68C;
+        }
+
+		.open > .dropdown-menu {
+		  -webkit-transform: scale(1, 1);
+		  transform: scale(1, 1);
+		  opacity:1;
+		}
+
+		.dropdown-menu {
+		  opacity:.3;
+		  -webkit-transform-origin: top;
+		  transform-origin: top;
+		  -webkit-animation-fill-mode: forwards;
+		  animation-fill-mode: forwards;
+		  -webkit-transform: scale(1, 0);
+		  display: block;
+		  transition: all 0.2s linear;
+		  -webkit-transition: all 0.2s linear;
+		}
+
+		.container-fixed {
+		  margin: 10% auto;
+		  max-width: 480px;
+		}
+
+		.navbar-nav {
+			float:right;
+		}
+
+		h1,h2,h3,.highlight,.navbar a, .navbar-brand,#masthead h4 {
+		}
+
+		h3 a {
+			font-size: 24pt;
+		}
+
+		.img_cover{
+			max-width: 150px;
+		}
+	</style>
+
+</head>
   
-  <body>
-  
-	<nav class="navbar navbar-dark bg-dark">
-  		<h1 class="navbar-brand" href="#">Libre Mercado</h1>
+	<body>
+
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<h1 class="title"><font color="black">Libre Mercado</font></h1>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" th:href ="agregarProducto">Publicar</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" th:href ="historial">Historial</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" th:href ="verProductos">Mis publicaciones</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" th:href ="cerrarSesion">Cerrar Sesion</a>
+				</li>
+			</ul>
+		</div>
 	</nav>
-   	
-   	  <!-- El "agregarProducto" hace referencia al HTML -->
-   	<br/>
-		<a th:href ="agregarProducto" class="btn btn-block btn-primary btn-lg active" role="button" aria-pressed="true">Agregar Publicacion</a>	
-	<br/>
 
-	<a th:href ="historial" class="btn btn-block btn-primary btn-lg active" role="button" aria-pressed="true">Historial De Compra</a>
-	<br/>
-
-		<a th:href ="verProductos" class="btn btn-block btn-primary btn-lg active" role="button" aria-pressed="true">Ver Publicaciones</a>
-	<br/>
-
-		<a th:href ="cerrarSesion" class="btn btn-block btn-primary btn-lg active" role="button" aria-pressed="true">Cerrar Sesion</a>
-	<br/>
-
-  </body>
+	</body>
   
 
 </html>
