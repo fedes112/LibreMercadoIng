@@ -352,16 +352,16 @@ public class mainController {
 	}
 
 
-	@RequestMapping(value= "/verProductosCreados",
+	@RequestMapping(value = "/verCreados",
 			method = RequestMethod.GET)
-	public ModelAndView mostrarProductos(HttpSession session){
+	public ModelAndView productosCreadosGet(HttpSession session){
 
 		Usuario userSes = (Usuario) session.getAttribute("usuario");
-		List<Producto> listaProductos ;
+		List<Producto>  creados;
 		ModelAndView modelAndView = new ModelAndView();
-		listaProductos = userSes.getProductosCreados();
-		modelAndView.addObject("listaDeProductosCreadosPorUsuario", listaProductos);
-		modelAndView.setViewName("/verProductosCreados");
+		creados = daoProducto.findByOwner(userSes);
+		modelAndView.addObject("creaciones", creados);
+		modelAndView.setViewName("/verCreados");
 
 		return modelAndView;
 	}

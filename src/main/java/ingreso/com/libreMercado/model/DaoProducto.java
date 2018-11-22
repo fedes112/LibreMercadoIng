@@ -10,5 +10,5 @@ public interface DaoProducto extends CrudRepository<Producto, Integer>{
     ArrayList<Producto> findByTagsLike (String tag);
     Producto findByNombreProducto(String nombreProducto);
     Boolean existsByNombreProducto(String nombreProducto);
-	
+    ArrayList<Producto> findByOwner (Usuario creador);
 }

@@ -3,7 +3,7 @@
 
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> </link>
-    <title>		Formulario Publicacion</title>
+    <title>        Formulario Publicacion</title>
 
     <style type="text/css">
 
@@ -31,8 +31,13 @@
 
 <br/>
 
-<form action="verProductosCreados" method = "get">
+<form action="verProductos" method = "get">
+    <tr>
 
+        <td scope="col">    <input type="text" id ="txt" name="nombreProducto" placeholder = "Ingrese el nombre " /></td>
+        <td scope="col">    <button type="submit" class="btn btn-dark" value= "Buscar Producto"><label> <a th:href= "@{/verProductos }">Buscar Publicaciones</a></label> </button> </td>
+
+    </tr>
 
 </form>
 
@@ -51,13 +56,14 @@
     </thead>
     <tbody>
 
-    <tr th:each = "p : ${listaDeProductosCreadosPorUsuario}" >
+    <tr th:each = "p : ${creaciones}" >
 
         <td><img th:src = "${p.getImagen()}" width="75" height="75"/> </td>
         <td><p th:text = "${p.getNombreProducto()}"> </p></td>
         <td><p th:text = "${p.getPrecioProducto()}"> </p></td>
         <td><p th:text = "${p.getCantidad()}"> </p> </td>
         <td><p th:text = "${p.getTags()}"> </p> </td>
+
 
     </tr>
 
