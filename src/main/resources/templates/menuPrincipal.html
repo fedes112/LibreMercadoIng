@@ -19,7 +19,7 @@
 		body, html{
 			height: 100%;
 			background-repeat: no-repeat;
-			background-color: #F0E68C;
+			background-color: white;
 			font-family: 'Oxygen', sans-serif;
 		}
 
@@ -73,30 +73,16 @@
   
 	<body>
 
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<h1 class="title"><font color="black">Libre Mercado</font></h1>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
-					<a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" th:href ="agregarProducto">Publicar</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" th:href ="historial">Historial</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" th:href ="verProductos">Mis publicaciones</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" th:href ="cerrarSesion">Cerrar Sesion</a>
-				</li>
-			</ul>
+	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #F0E68C;">
+		<p class="title">Libre Mercado</p>
+		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+			<div class="navbar-nav">
+				<a class="nav-item nav-link active" th:href ="menuPrincipal">Inicio<span class="sr-only">(current)</span></a>
+				<a class="nav-item nav-link" th:href ="agregarProducto">Publicar</a>
+				<a class="nav-item nav-link" th:href ="historial">Mis compras</a>
+				<a class="nav-item nav-link" th:href ="verProductos">Mis publicaciones</a>
+				<a class="nav-item nav-link" th:href ="cerrarSesion">Cerrar Sesion</a>
+			</div>
 		</div>
 	</nav>
 
