@@ -14,6 +14,6 @@ public interface DaoProducto extends CrudRepository<Producto, Integer>{
     Boolean existsByNombreProducto(String nombreProducto);
     ArrayList<Producto> findByOwner (Usuario creador);
     
-    @Query("SELECT p FROM Producto p WHERE p.owner != :user")
+    @Query("SELECT p FROM Producto p WHERE p.owner != :user and p.cantidad > 0")
     ArrayList<Producto> findAllForUser(@Param("user") Usuario user);
 }
