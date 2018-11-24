@@ -103,7 +103,7 @@
                 <a class="nav-item nav-link" th:href ="menuPrincipal">Inicio<span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" th:href ="agregarProducto">Publicar</a>
                 <a class="nav-item nav-link" th:href ="historial">Mis compras</a>
-                <a class="nav-item nav-link active" th:href ="verProductos">Mis publicaciones</a>
+                <a class="nav-item nav-link" th:href ="verCreados">Mis publicaciones</a>
                 <a class="nav-item nav-link" th:href ="cerrarSesion">Cerrar Sesion</a>
             </div>
         </div>
@@ -137,7 +137,6 @@
                 <td class="columnInfo"><p th:text = "${p.getCantidad()}"> </p> </td>
                 <td class="columnInfo"><p th:text = "${p.getTags()}"> </p> </td>
 
-                <td width="7%"><a th:href = "@{/eliminarProducto(id = ${p.getId()})}"><button type="submit" class="btn btn-primary btn-lg btn-block login-button"><label>Eliminar</label></button></a></td>
                 <td width="7%"><a th:href = "@{/comprarProducto(id = ${p.getId()})}"><button type="submit" class="btn btn-primary btn-lg btn-block login-button"><label>Comprar</label></button></a></td>
             </tr>
 
