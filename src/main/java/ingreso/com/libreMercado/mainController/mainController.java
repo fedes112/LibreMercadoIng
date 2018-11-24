@@ -33,9 +33,12 @@ public class mainController {
 
 	@RequestMapping(value = "/",
 			method = RequestMethod.GET)
-	public ModelAndView inicioGet(){
+	public ModelAndView inicioGet(HttpSession session){
 
 		ModelAndView modelAndView = new ModelAndView();
+
+		modelAndView.addObject("Usuario", new Usuario());
+
 		modelAndView.setViewName("inicio");
 
 		return modelAndView;
@@ -49,6 +52,7 @@ public class mainController {
 		Usuario usuario = (Usuario) session.getAttribute("usuario");
 		
 		return this.iniciarSesion(usuario, modelAndView);
+
 	}
 
 	@RequestMapping(value= "agregarProducto",
@@ -67,7 +71,7 @@ public class mainController {
 			modelAndView.setViewName("agregarProducto");
 		}
 		else {
-			modelAndView.setViewName("inicio");
+			modelAndView = this.inicioGet(session);
 		}
 		return modelAndView;
 
@@ -178,18 +182,16 @@ public class mainController {
 	@RequestMapping(value = "cerrarSesion",
 			method = RequestMethod.GET)
 	public ModelAndView cerrarSesionGet(HttpSession session) {
-		ModelAndView modelAndView = new ModelAndView();
-
 		session.invalidate();
-		modelAndView.setViewName("inicio");
 
-		return modelAndView;
+		return this.inicioGet(session);
 	}
 
 	@RequestMapping(value= "verProductos",
 			method = RequestMethod.GET)
 	public ModelAndView mostrarProductos(HttpSession session ,@RequestParam(value = "nombreProducto", required = false) String nombreProducto){
 		ModelAndView modelAndView = new ModelAndView();
+
 		Usuario user = (Usuario) session.getAttribute("usuario");
 		return this.verProductos(nombreProducto, modelAndView, session);
 
@@ -212,7 +214,6 @@ public class mainController {
 		ModelAndView modelAndView = new ModelAndView();
 		Usuario usuario = (Usuario) session.getAttribute("usuario");
 
-
 		return this.eliminarUsuario(usuario, modelAndView, id);
 
 	}
@@ -225,6 +226,7 @@ public class mainController {
 		Iterable<Producto> listaProductos = daoProducto.findAll();
 		
 		return this.verTotalidadDeProductos(usuario, modelAndView, listaProductos);
+
 	}
 
 	

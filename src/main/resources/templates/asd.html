@@ -18,7 +18,7 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-    <title>Registro - Libre Mercado</title>
+    <title>Bienvenido - Libre Mercado</title>
 
     <style type="text/css">
         body, html{
@@ -94,115 +94,80 @@
 
     <div class="panel-heading">
         <div class="panel-title text-center">
-            <h1 class="title">Libre Mercado</h1>
+            <h1 class="title">Publicar</h1>
             <hr />
         </div>
     </div>
 
-    <div class="row main" style="width:50%; margin:0 auto; float:left;">
+    <div class="row main" style="width:50%; margin:0; float:left;">
         <div class="main-login main-center">
-            <form class="form-horizontal" method="post" action="registrarUsuario">
+            <form class="form-horizontal" method="post">
 
                 <div class="form-group">
-                    <label for="name" class="cols-sm-2 control-label">Nombre completo</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="name" id="name" placeholder="Nombre completo"/>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="email" class="cols-sm-2 control-label">Email</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="email" id="email"  placeholder="Email"/>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="name" class="cols-sm-2 control-label">DNI</label>
+                    <label for="name" class="cols-sm-2 control-label">Nombre del producto</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="dni" id="dni" th:field = "${usuario.dni}" placeholder="DNI"/>
+                            <input type="text" class="form-control" name="name" id="name" th:field = "${Producto.nombreProducto}" placeholder="Nombre del producto"/>
                         </div>
                     </div>
                 </div>
 
-
                 <div class="form-group">
-                    <label for="usernameRegister" class="cols-sm-2 control-label">Nombre de usuario</label>
+                    <label for="precio" class="cols-sm-2 control-label">Precio</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="usernameRegister" id="usernameRegister"  th:field = "${usuario.nombreDeUsuario}"  placeholder="Nombre de usuario"/>
+                            <input type="number" class="form-control" name="precio" id="precio" th:field = "${Producto.precioProducto}" placeholder="Precio"/>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="passwordRegister" class="cols-sm-2 control-label">Contraseña</label>
+                    <label for="cantidad" class="cols-sm-2 control-label">Cantidad</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                            <input type="password" class="form-control" name="passwordRegister" id="passwordRegister"  th:field = "${usuario.contraseña}"  placeholder="Contraseña"/>
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            <input type="number" class="form-control" name="cantidad" id="cantidad" th:field = "${Producto.precioProducto}" placeholder="Cantidad"/>
                         </div>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label for="imagen" class="cols-sm-2 control-label">Cantidad</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="imagen" id="imagen" th:field = "${Producto.imagen}" placeholder="Imagen"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="categoria" class="cols-sm-2 control-label">Cantidad</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            <tr th:each = "t : ${listadeTags}" >
+                                <option th:text = "${t}"><p th:text = "${t}"> </p></option>
+                            </tr>
+                            <input type="text" class="form-control" name="categoria" id="categoria" th:field = "${Producto.tags}" placeholder="Imagen"/>
+                        </div>
+                    </div>
+                </div>
+
+
+
 
 
                 <div class="form-group ">
-                    <input type = "submit" value = "Registrar" class = "btn btn-primary btn-lg btn-block login-button"/>
+                    <input type = "submit" value = "Agregar Producto" class = "btn btn-primary btn-lg btn-block login-button"/>
                 </div>
             </form>
         </div>
     </div>
 
-    <div class="row main" style="width:50%; margin:0; float:right;">
 
-        <div class="main-login main-center">
-
-            <div class="panel-heading">
-                <div class="panel-title text-center">
-                    <h3>El usuario no existe o los datos son incorrectos.</h3>
-                    <h3>Intentelo nuevamente.</h3>
-                    <hr />
-                </div>
-            </div>
-
-            <form class="form-horizontal" method="post" action="verificarUsuario">
-
-                <div class="form-group">
-                    <label for="usernameLogin" class="cols-sm-2 control-label">Nombre de usuario</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="usernameLogin" id="usernameLogin"  th:field = "${usuario.nombreDeUsuario}"  placeholder="Nombre de usuario"/>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="passwordLogin" class="cols-sm-2 control-label">Contraseña</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                            <input type="password" class="form-control" name="passwordLogin" id="passwordLogin"  th:field = "${usuario.contraseña}"  placeholder="Contraseña"/>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="form-group ">
-                    <input type = "submit" value = "Iniciar sesion" class = "btn btn-primary btn-lg btn-block login-button"/>
-                </div>
-            </form>
-        </div>
-    </div>
 </div>
 
 <script type="text/javascript" src="assets/js/bootstrap.js"></script>
