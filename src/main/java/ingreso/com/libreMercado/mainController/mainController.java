@@ -115,13 +115,10 @@ public class mainController {
 		Usuario userSes = (Usuario) session.getAttribute("usuario");
 		ModelAndView modelAndView = new ModelAndView();
 		Producto producto = daoProducto.findOne(id);
-
+		String nombreProducto = (String) session.getAttribute("busqueda");
 		this.comprarProducto(producto, userSes, id);
 
-		modelAndView.addObject("listaDeProductos", daoProducto.findAll());
-		modelAndView.setViewName("verProductos");
-
-		return modelAndView;
+		return this.verProductos(nombreProducto, modelAndView, session);
 	}
 	
 
@@ -189,7 +186,8 @@ public class mainController {
 			method = RequestMethod.GET)
 	public ModelAndView mostrarProductos(HttpSession session ,@RequestParam(value = "nombreProducto", required = false) String nombreProducto){
 		ModelAndView modelAndView = new ModelAndView();
-
+		
+		session.setAttribute("busqueda", nombreProducto);
 		Usuario user = (Usuario) session.getAttribute("usuario");
 		return this.verProductos(nombreProducto, modelAndView, session);
 
@@ -288,10 +286,6 @@ public class mainController {
 		userSes.agregarProductoAlHistorial(producto);
 		daoProducto.save(producto);
 		daoUsuario.save(userSes);
-
-		if(producto.getCantidad() <= 0) {
-			daoProducto.delete(id);
-		}
 	}
 	
 	public ModelAndView verificarUsuario(Usuario usuario, ModelAndView modelAndView, HttpSession session) {
