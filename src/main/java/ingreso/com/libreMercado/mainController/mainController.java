@@ -97,15 +97,13 @@ public class mainController {
 
 	@RequestMapping(value = "/eliminarProducto",
 			method = RequestMethod.GET)
-	public ModelAndView eliminarProductoGET(@RequestParam("id") int id){
+	public ModelAndView eliminarProductoGET(@RequestParam("id") int id, HttpSession session){
 
 		daoProducto.delete(id);
 
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("listaDeProductos", daoProducto.findAll());
-		modelAndView.setViewName("verProductos");
 
-		return modelAndView;
+		return this.productosCreadosGet(session);
 
 	}
 
@@ -250,10 +248,10 @@ public class mainController {
 	public ModelAndView productosCreadosGet(HttpSession session){
 
 		Usuario userSes = (Usuario) session.getAttribute("usuario");
-		List<Producto>  creados;
+		List<Producto> productosCreados;
 		ModelAndView modelAndView = new ModelAndView();
-		creados = daoProducto.findByOwner(userSes);
-		modelAndView.addObject("creaciones", creados);
+		productosCreados = daoProducto.findByOwner(userSes);
+		modelAndView.addObject("listaDeProductos", productosCreados);
 		modelAndView.setViewName("/verCreados");
 
 		return modelAndView;
