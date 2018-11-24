@@ -190,7 +190,7 @@ public class mainController {
 			method = RequestMethod.GET)
 	public ModelAndView mostrarProductos(HttpSession session ,@RequestParam(value = "nombreProducto", required = false) String nombreProducto){
 		ModelAndView modelAndView = new ModelAndView();
-		
+		Usuario user = (Usuario) session.getAttribute("usuario");
 		return this.verProductos(nombreProducto, modelAndView, session);
 
 	}		
@@ -319,11 +319,11 @@ public class mainController {
 	}
 	
 	public ModelAndView verProductos(String nombreProducto, ModelAndView modelAndView, HttpSession session) {
-			
+			Usuario user = (Usuario) session.getAttribute("usuario");
 			Iterable<Producto> listaProductos ;
-			if(null != session.getAttribute("usuario")) {
+			if(null != user) {
 				if (nombreProducto == null || nombreProducto == "") {
-					listaProductos = daoProducto.findAll();
+					listaProductos = daoProducto.findAllForUser(user);
 				} else {
 					listaProductos = daoProducto.findByNombreProductoLike("%"+nombreProducto+"%");
 					((ArrayList<Producto>) listaProductos).addAll(daoProducto.findByTagsLike("%"+nombreProducto+"%"));
