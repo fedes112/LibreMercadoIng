@@ -350,4 +350,19 @@ public class mainController {
 		return modelAndView;
 	}
 
+
+	@RequestMapping(value = "/verCreados",
+			method = RequestMethod.GET)
+	public ModelAndView productosCreadosGet(HttpSession session){
+
+		Usuario userSes = (Usuario) session.getAttribute("usuario");
+		List<Producto>  creados;
+		ModelAndView modelAndView = new ModelAndView();
+		creados = daoProducto.findByOwner(userSes);
+		modelAndView.addObject("creaciones", creados);
+		modelAndView.setViewName("/verCreados");
+
+		return modelAndView;
+	}
+
 }
