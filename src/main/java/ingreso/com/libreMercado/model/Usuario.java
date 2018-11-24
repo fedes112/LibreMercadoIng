@@ -17,9 +17,9 @@ public class Usuario {
     private String contraseña;
     private Boolean esAdministrador;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "prod", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
-    private List<Producto> historialCompra = new ArrayList<Producto>();
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "prod", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
+//    private List<ProductoComprado> historialCompra = new ArrayList<ProductoComprado>();
 
     public Usuario(){}
 
@@ -64,13 +64,13 @@ public class Usuario {
 
     }
 
-    public void agregarProductoAlHistorial(Producto producto){
-        this.historialCompra.add(producto);
-    }
-
-    public List<Producto> getHistorial(){
-        return this.historialCompra;
-    }
+//    public void agregarProductoAlHistorial(ProductoComprado producto){
+////        this.historialCompra.add(producto);
+////    }
+////
+////    public List<ProductoComprado> getHistorial(){
+////        return this.historialCompra;
+////    }
 
     public long getDni() {
         return dni;

@@ -1,7 +1,6 @@
 package ingreso.com.libreMercado.mainController;
 
-import ingreso.com.libreMercado.model.DaoUsuario;
-import ingreso.com.libreMercado.model.Usuario;
+import ingreso.com.libreMercado.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,13 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import ingreso.com.libreMercado.model.DaoProducto;
-import ingreso.com.libreMercado.model.Producto;
-
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -28,6 +23,8 @@ public class mainController {
 	private DaoProducto daoProducto;
 	@Autowired
 	private DaoUsuario daoUsuario;
+	@Autowired
+	private DaoProductoComprado daoProductoComprado;
 	private ArrayList<String> tags = new ArrayList<String>();
 
 
@@ -231,9 +228,9 @@ public class mainController {
 	public ModelAndView historialGet(HttpSession session){
 
 		Usuario userSes = (Usuario) session.getAttribute("usuario");
-		List<Producto> historial ;
+		List<ProductoComprado> historial ;
 		ModelAndView modelAndView = new ModelAndView();
-		historial = userSes.getHistorial();
+		historial = daoProductoComprado.findByOwner(userSes);
 		modelAndView.addObject("historial", historial);
 		modelAndView.setViewName("/historial");
 
@@ -283,7 +280,10 @@ public class mainController {
 	
 	public void comprarProducto(Producto producto, Usuario userSes, int id) {
 		producto.setCantidad(producto.getCantidad() - 1);
-		userSes.agregarProductoAlHistorial(producto);
+		ProductoComprado productoComprado = new ProductoComprado
+				(producto.getNombreProducto(),producto.getImagen(),producto.getPrecioProducto(),producto.getOwner(),userSes);
+//		userSes.agregarProductoAlHistorial(productoComprado);
+		daoProductoComprado.save(productoComprado);
 		daoProducto.save(producto);
 		daoUsuario.save(userSes);
 	}

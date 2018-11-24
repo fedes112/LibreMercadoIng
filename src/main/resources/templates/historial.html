@@ -123,6 +123,7 @@
             <th scope="col" class="columnTitle">Imagen</th>
             <th scope="col" class="columnTitle">Publicacion</th>
             <th scope="col" class="columnTitle">Precio</th>
+            <th scope="col" class="columnTitle">Puntuacion</th>
         </tr>
         </thead>
         <tbody>
@@ -131,6 +132,8 @@
             <td class="columnInfo"><img th:src = "${p.getImagen()}" width="75" height="75"/> </td>
             <td class="columnInfo"><p th:text = "${p.getNombreProducto()}"> </p></td>
             <td class="columnInfo"><p th:text = "${p.getPrecioProducto()}"> </p></td>
+
+
         </tr>
 
         </tbody>
