@@ -3,72 +3,139 @@
 
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> </link>
-    <title>	Formulario Publicacion </title>
+    <title>Libre Mercado</title>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"/>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 
     <style type="text/css">
+		body, html{
+			height: 100%;
+			background-repeat: no-repeat;
+			background-color: white;
+			font-family: 'Oxygen', sans-serif;
+		}
 
-        a:link {
-            text-decoration: none;
+        h1.title {
+            font-size: 35px;
+            font-family: 'Passion One', cursive;
+            font-weight: 80;
+            font-color: #F0E68C;
         }
 
-        a{
-            color: white;
-        }
 
-    </style>
+		.open > .dropdown-menu {
+		  -webkit-transform: scale(1, 1);
+		  transform: scale(1, 1);
+		  opacity:1;
+		}
+
+		.dropdown-menu {
+		  opacity:.3;
+		  -webkit-transform-origin: top;
+		  transform-origin: top;
+		  -webkit-animation-fill-mode: forwards;
+		  animation-fill-mode: forwards;
+		  -webkit-transform: scale(1, 0);
+		  display: block;
+		  transition: all 0.2s linear;
+		  -webkit-transition: all 0.2s linear;
+		}
+
+		.container-fixed {
+		  margin: 10% auto;
+		  max-width: 480px;
+		}
+
+		.navbar-nav {
+			float:right;
+		}
+
+		h1,h2,h3,.highlight,.navbar a, .navbar-brand,#masthead h4 {
+		}
+
+		h3 a {
+			font-size: 24pt;
+		}
+
+		.img_cover{
+			max-width: 150px;
+		}
+
+		.title {
+		    font-size: 35px;
+            font-family: 'Passion One', cursive;
+            font-weight: 80;
+            font-color: #F0E68C;
+		}
+
+		.columnTitle {
+		    font-size: 15px;
+            font-weight:bold;
+            font-color: black;
+		}
+
+		.columnInfo {
+		    font-size: 15px;
+            font-color: black;
+		}
+
+		.productos {
+            margin: 0 auto;
+		    max-width: 70%;
+		}
+
+	</style>
 
 </head>
 
+<body>
 
 
-<nav class="navbar navbar-dark bg-dark">
-    <h1 class="navbar-brand" href="#">Lista de Publicaciones en el sistema</h1>
-</nav>
-
-<br/>
-
-<h2>Lista de publicaciones </h2>
-
-<br/>
-
-<form action="verProductos" method = "get">
-    <tr>
-
-        <td scope="col">    <input type="text" id ="txt" name="nombreProducto" placeholder = "Ingrese el nombre " /></td>
-        <td scope="col">    <button type="submit" class="btn btn-dark" value= "Buscar Producto"><label> <a th:href= "@{/verProductos }">Buscar Publicaciones</a></label> </button> </td>
-
-    </tr>
-
-</form>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #F0E68C;">
+        <p class="title">Libre Mercado</p>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" th:href ="menuPrincipal">Inicio<span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" th:href ="verTodosLosProductos">Administrar publicaciones</a>
+                <a class="nav-item nav-link active" th:href ="verUsuarios">Administrar usuarios</a>
+                <a class="nav-item nav-link" th:href ="cerrarSesion">Cerrar Sesion</a>
+            </div>
+        </div>
+    </nav>
 
 <br/>
-<table class="table">
 
-    <thead>
-    <tr>
+<h1 align="center" class="title">Usuarios en el sistema</h1>
 
-        <th scope="col">Nombre</th>
-        <th scope="col">DNI</th>
+<br/>
+<br/>
 
-    </tr>
-    </thead>
-    <tbody>
+<div class="productos">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col" class="columnTitle">Nombre</th>
+            <th scope="col" class="columnTitle">DNI</th>
+        </tr>
+        </thead>
+        <tbody>
 
-    <tr th:each = "user : ${listaDeUsuarios}" >
+        <tr th:each = "user : ${listaDeUsuarios}" >
+            <td class="columnInfo"><p th:text = "${user.getNombreDeUsuario()}"> </p></td>
+            <td class="columnInfo"><p th:text = "${user.getDni()}"> </p></td>
+        </tr>
 
+        </tbody>
+    </table>
+</div>
 
-        <td><p th:text = "${user.getNombreDeUsuario()}"> </p></td>
-        <td><p th:text = "${user.getDni()}"> </p></td>
-
-
-        <td><button type="button" class="btn btn-primary btn-sm"><label>	<a th:href = "@{/eliminarUsuario(id = ${user.getNombreDeUsuario()})}" class = "sub">Elimniar Usuario</a> </label></button></td>
-    </tr>
-
-    </tbody>
-</table>
-
-
-<a th:href = "@{/menuPrincipal}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Volver a Inicio</a>
+</body>
 
 
 </html>

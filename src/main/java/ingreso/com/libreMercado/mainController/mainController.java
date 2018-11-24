@@ -33,9 +33,11 @@ public class mainController {
 
 	@RequestMapping(value = "/",
 			method = RequestMethod.GET)
-	public ModelAndView inicioGet(){
+	public ModelAndView inicioGet(HttpSession session){
 
 		ModelAndView modelAndView = new ModelAndView();
+
+		modelAndView.addObject("Usuario", new Usuario());
 
 		modelAndView.setViewName("inicio");
 
@@ -59,7 +61,7 @@ public class mainController {
 			}
 		}
 		else {
-			modelAndView.setViewName("inicio");
+			modelAndView = this.inicioGet(session);
 		}
 
 		return modelAndView;
@@ -85,7 +87,7 @@ public class mainController {
 			modelAndView.setViewName("agregarProducto");
 		}
 		else {
-			modelAndView.setViewName("inicio");
+			modelAndView = this.inicioGet(session);
 		}
 		return modelAndView;
 
@@ -227,12 +229,9 @@ public class mainController {
 	@RequestMapping(value = "cerrarSesion",
 			method = RequestMethod.GET)
 	public ModelAndView cerrarSesionGet(HttpSession session) {
-		ModelAndView modelAndView = new ModelAndView();
-
 		session.invalidate();
-		modelAndView.setViewName("inicio");
 
-		return modelAndView;
+		return this.inicioGet(session);
 	}
 
 	@RequestMapping(value= "verProductos",
@@ -254,7 +253,7 @@ public class mainController {
 			modelAndView.setViewName("verProductos");
 		}
 		else {
-			modelAndView.setViewName("inicio");
+			modelAndView = this.inicioGet(session);
 		}
 
 		return modelAndView;
@@ -278,7 +277,7 @@ public class mainController {
 			}
 		}
 		else {
-			modelAndView.setViewName("inicio");
+			modelAndView = this.inicioGet(session);
 		}
 
 		return modelAndView;
@@ -305,7 +304,7 @@ public class mainController {
 			}
 		}
 		else {
-			modelAndView.setViewName("inicio");
+			modelAndView = this.inicioGet(session);
 		}
 
 		return modelAndView;
@@ -331,7 +330,7 @@ public class mainController {
 			}
 		}
 		else {
-			modelAndView.setViewName("inicio");
+			modelAndView = this.inicioGet(session);
 		}
 
 		return modelAndView;
