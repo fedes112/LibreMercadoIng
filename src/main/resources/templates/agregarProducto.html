@@ -3,75 +3,176 @@
 
 <head>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> </link>
-	<title>		Formulario Libre Mercado	</title>
+	<title>Libre Mercado</title>
 
-     <style type="text/css">
-  body {
-    color: purple;
-    background-color: #00FFFF }
-    
-  a:link {
-  	text-decoration: none;
-    }
-  
-  a{
-  	color: white;
-  }
-  
-  h1{
-  	text-align: center;
-  }
-    
-  label{
-  	color: black;
-  	font-family: inherit;
-  	font-weight: 600;
-  	 }	    
-    
-  </style>
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"/>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
+	<!-- Compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+	<style type="text/css">
+		body, html{
+			height: 100%;
+			background-repeat: no-repeat;
+			background-color: white;
+			font-family: 'Oxygen', sans-serif;
+		}
+
+        h1.title {
+            font-size: 35px;
+            font-family: 'Passion One', cursive;
+            font-weight: 80;
+            font-color: #F0E68C;
+        }
+
+
+		.open > .dropdown-menu {
+		  -webkit-transform: scale(1, 1);
+		  transform: scale(1, 1);
+		  opacity:1;
+		}
+
+		.dropdown-menu {
+		  opacity:.3;
+		  -webkit-transform-origin: top;
+		  transform-origin: top;
+		  -webkit-animation-fill-mode: forwards;
+		  animation-fill-mode: forwards;
+		  -webkit-transform: scale(1, 0);
+		  display: block;
+		  transition: all 0.2s linear;
+		  -webkit-transition: all 0.2s linear;
+		}
+
+		.container-fixed {
+		  margin: 10% auto;
+		  max-width: 480px;
+		}
+
+		.navbar-nav {
+			float:right;
+		}
+
+		h1,h2,h3,.highlight,.navbar a, .navbar-brand,#masthead h4 {
+		}
+
+		h3 a {
+			font-size: 24pt;
+		}
+
+		.img_cover{
+			max-width: 150px;
+		}
+
+		.title {
+		    font-size: 35px;
+            font-family: 'Passion One', cursive;
+            font-weight: 80;
+            font-color: #F0E68C;
+		}
+
+		.columnTitle {
+		    font-size: 15px;
+            font-weight:bold;
+            font-color: black;
+		}
+
+		.columnInfo {
+		    font-size: 15px;
+            font-color: black;
+		}
+
+		.productos {
+            margin: 0 auto;
+		    max-width: 70%;
+		}
+
+	</style>
 
 </head>
 
 <body>
 
-	<nav class="navbar navbar-dark bg-dark">
-  		<h1 class="navbar-brand" href="#">Agregar Publicacion</h1>
-	</nav>
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #F0E68C;">
+	<p class="title">Libre Mercado</p>
+	<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+		<div class="navbar-nav">
+			<a class="nav-item nav-link active" th:href ="menuPrincipal">Inicio<span class="sr-only">(current)</span></a>
+			<a class="nav-item nav-link" th:href ="agregarProducto">Publicar</a>
+			<a class="nav-item nav-link" th:href ="historial">Mis compras</a>
+			<a class="nav-item nav-link" th:href ="verProductos">Mis publicaciones</a>
+			<a class="nav-item nav-link" th:href ="cerrarSesion">Cerrar Sesion</a>
+		</div>
+	</div>
+</nav>
 
-<form action="agregarProducto" method = "post">
-	<label>Publicacion</label> <br/>
-		<input type = "text" th:field = "${Producto.nombreProducto}" 
-   		placeholder = "Ingrese el nombre" /><br/><br/>
-   		
-   	<label>Precio</label> <br/>
-   		<input type = "number" th:field = "${Producto.precioProducto}"
-   		placeHolder = "Ingresar Precio"/> <br/><br/>
-   		
-   	<label>Cantidad</label> <br/>
-   		<input type = "number" th:field = "${Producto.cantidad}"
-   		placeHolder = "Ingresar cantidad"/> mmm<br/><br/>
+		<div class="panel-heading">
+			<div class="panel-title text-center">
+				<h1 class="title">Publicar</h1>
+				<hr />
+			</div>
+		</div>
 
-	<label>Imagen</label> <br/>
-	<input type = "text" th:field = "${Producto.imagen}"
-		   placeHolder = "Ingresar link de imagen"/> <br/><br/>
+			<div class="main-login main-center" style="width:30%; margin:0 auto; float:center; border-style: solid; border-color: #F0E68C; border-width: 10px; padding: 20px">
+				<form class="form-horizontal" method="post">
 
-	<label>Elegir una categoria</label> <br/>
-	<select path="Tags" th:field = "${Producto.tags}">
-		<tr th:each = "t : ${listadeTags}" >
-			<option th:text = "${t}"><p th:text = "${t}"> </p></option>
-		</tr>
-	</select>
+					<div class="form-group">
+						<label for="name" class="cols-sm-2 control-label">Nombre del producto</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+								<input type="text" class="form-control" name="name" id="name" th:field = "${Producto.nombreProducto}" placeholder="Nombre del producto"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="precio" class="cols-sm-2 control-label">Precio</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+								<input type="number" class="form-control" name="precio" id="precio" th:field = "${Producto.precioProducto}" placeholder="Precio"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="cantidad" class="cols-sm-2 control-label">Cantidad</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+								<input type="number" class="form-control" name="cantidad" id="cantidad" th:field = "${Producto.cantidad}" placeholder="Cantidad"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="imagen" class="cols-sm-2 control-label">Imagen</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+								<input type="text" class="form-control" name="imagen" id="imagen" th:field = "${Producto.imagen}" placeholder="Imagen"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<select class="custom-select mr-sm-2" id="inlineFormCustomSelect" th:field = "${Producto.tags}">
+							<option th:each="c : ${listadeTags}" th:value="${c}" th:text="${c}"/>
+						</select>
+					</div>
+
+					<div class="form-group ">
+						<input type = "submit" value = "Agregar Producto" class = "btn btn-primary btn-lg btn-block login-button"/>
+					</div>
+				</form>
+			</div>
 
 
-	<button type="submit" class="btn btn-dark" value= "Agregar Producto">Agregar Publicacion</button>	
 
-</form>
-
-<br/>
-<button type="submit" class="btn btn-dark" value= "Agregar Producto"><label> <a th:href= "@{/menuPrincipal}">Inicio</a> </label></button>
-
+<script type="text/javascript" src="assets/js/bootstrap.js"></script>
 </body>
-
-
-
 </html>
