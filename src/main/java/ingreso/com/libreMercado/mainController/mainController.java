@@ -51,7 +51,7 @@ public class mainController {
 		ModelAndView modelAndView = new ModelAndView();
 		Usuario usuario = (Usuario) session.getAttribute("usuario");
 		
-		return this.iniciarSesion(usuario, modelAndView);
+		return this.iniciarSesion(usuario, modelAndView, session);
 
 	}
 
@@ -261,7 +261,7 @@ public class mainController {
 	
 	//----------------------METODOS-----------------------
 	
-	public ModelAndView iniciarSesion(Usuario usuario, ModelAndView modelAndView) {
+	public ModelAndView iniciarSesion(Usuario usuario, ModelAndView modelAndView, HttpSession session) {
 		if(null != usuario) {
 			if (usuario.getEsAdministrador()) {
 				modelAndView.setViewName("menuAdmin");
@@ -271,7 +271,7 @@ public class mainController {
 			}
 		}
 		else {
-			modelAndView.setViewName("inicio");
+			modelAndView = this.inicioGet(session);
 		}
 		return modelAndView;
 	}
