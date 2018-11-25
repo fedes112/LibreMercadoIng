@@ -104,11 +104,21 @@
                 <a class="nav-item nav-link" th:href ="agregarProducto">Publicar</a>
                 <a class="nav-item nav-link" th:href ="historial">Mis compras</a>
                 <a class="nav-item nav-link" th:href ="verCreados">Mis publicaciones</a>
+                <a class="nav-item nav-link" th:href ="perfilUsuario">Mi perfil</a>
                 <a class="nav-item nav-link" th:href ="cerrarSesion">Cerrar Sesion</a>
             </div>
         </div>
     </nav>
 
+ <br/>
+<form action="verProductos" method = "get">
+    <tr>
+        <td scope="col">    <input type="text" id ="txt" name="nombreProducto" placeholder = "Ingrese el nombre " /></td>
+        <td scope="col">    <button type="submit" class="btn btn-dark" value= "Buscar Producto"><label> <a th:href= "@{/verProductos }">Buscar Publicaciones</a></label> </button> </td>
+
+    </tr>
+
+</form>
     <br/>
 
     <h1 align="center" class="title">Resultados de: </h1>

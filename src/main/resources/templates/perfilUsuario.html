@@ -108,7 +108,20 @@
 				<a class="nav-item nav-link" th:href ="cerrarSesion">Cerrar Sesion</a>
 			</div>
 		</div>
+		
+
 	</nav>
+			<div class="panel-heading">
+			<div class="panel-title text-center">
+						<h1> Bienvenido: <a th:text = "${Usuario.getNombreDeUsuario()}"></a> </h1> 
+				<hr />
+				
+				<h2>Mail: <a th:text = "${Usuario.getMail()}"></a> </h2>
+				<h2>DNI: <a th:text = "${Usuario.getDni()}"></a> </h2>				 
+				<h2>Ranking: <a th:text = "${Usuario.getDni()}"></a> </h2> 
+			</div>
+		</div>
+	
 
 	</body>
   

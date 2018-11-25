@@ -16,6 +16,7 @@ public class Usuario {
     private long dni;
     private String contraseña;
     private Boolean esAdministrador;
+    private String mail;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "prod", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
@@ -24,10 +25,11 @@ public class Usuario {
     public Usuario(){}
 
 
-    public Usuario(String nombreACrear, String contraseñaACrear, long dni){
+    public Usuario(String nombreACrear, String contraseñaACrear, long dni, String mail){
         setNombreDeUsuario(nombreACrear);
         setContraseña(contraseñaACrear);
         setDni(dni);
+        setMail(mail);
 
     }
 
@@ -79,4 +81,14 @@ public class Usuario {
     public void setDni(long dni) {
         this.dni = dni;
     }
+
+
+	public String getMail() {
+		return mail;
+	}
+
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
 }
