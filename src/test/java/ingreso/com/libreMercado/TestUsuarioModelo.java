@@ -27,11 +27,11 @@ public class TestUsuarioModelo {
     @Autowired
     private DaoProducto daoProducto;
 
-    Usuario user = new Usuario("User","111",555);
+    Usuario user = new Usuario("User","111",555, "user@gmail");
 
     @Test
     public void testeoChequeoDeUsuario(){
-        Usuario usuarioGuido = new Usuario("Guido","1234",111);
+        Usuario usuarioGuido = new Usuario("Guido","1234",111, "usuarioguido@gmail");
 
         Assert.assertTrue(usuarioGuido.chequearUsuario("Guido"));
         Assert.assertTrue(usuarioGuido.chequearPassWord("1234"));
@@ -39,7 +39,7 @@ public class TestUsuarioModelo {
 
     @Test
     public void testUsuarioSeRegistraCorrectamente(){
-        Usuario usuarioJuan = new Usuario("Juan","1234",111);
+        Usuario usuarioJuan = new Usuario("Juan","1234",111, "usuarioJuan@gmail");
         daoUsuario.save(usuarioJuan);
 
         Assert.assertTrue(daoUsuario.exists("Juan"));

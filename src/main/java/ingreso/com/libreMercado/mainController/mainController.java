@@ -43,6 +43,19 @@ public class mainController {
 
 		return modelAndView;
 	}
+	
+	@RequestMapping(value = "/perfilUsuario",
+			method = RequestMethod.GET)
+	public ModelAndView perfilUsarioGet(HttpSession session) {
+
+		ModelAndView modelAndView = new ModelAndView();
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
+		modelAndView.addObject("Usuario", usuario);
+		modelAndView.setViewName("perfilUsuario");
+		
+		return modelAndView;
+
+	}
 
 	@RequestMapping(value = "/menuPrincipal",
 			method = RequestMethod.GET)
