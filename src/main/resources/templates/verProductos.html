@@ -90,6 +90,10 @@
 		    max-width: 70%;
 		}
 
+		.formulario {
+            margin: 0 auto;
+		    max-width: 30%;
+		}
 	</style>
 
 </head>
@@ -111,19 +115,22 @@
     </nav>
 
  <br/>
-<form action="verProductos" method = "get">
-    <tr>
-        <td scope="col">    <input type="text" id ="txt" name="nombreProducto" placeholder = "Ingrese el nombre " /></td>
-        <td scope="col">    <button type="submit" class="btn btn-dark" value= "Buscar Producto"><label> <a th:href= "@{/verProductos }">Buscar Publicaciones</a></label> </button> </td>
 
+    <br/>
+	
+	<div class="formulario">
+	<form action="verProductos" method = "get">
+    <tr>
+        <td scope="col">    <input type="text" id ="txt" name="nombreProducto"  style="font-size:20px; HEIGHT: 40px"  placeholder = "Ingrese el nombre " /></td>
+        <td scope="col">    <button type="submit" class="btn btn-primary btn-lg" value= "Buscar Producto"><label> <a th:href= "@{/verProductos }" style='text-decoration:none;color:white;'>Buscar Publicaciones</a></label> </button> </td>
+    
     </tr>
 
 </form>
-    <br/>
+	
+	
+	 </div>
 
-    <h1 align="center" class="title">Resultados de: </h1>
-
-    <br/>
     <br/>
 
     <div class="productos">
