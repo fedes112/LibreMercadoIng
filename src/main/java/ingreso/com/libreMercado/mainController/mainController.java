@@ -351,7 +351,7 @@ public class mainController {
 	}
 
 
-	@RequestMapping(value = "/verCreados",
+	@RequestMapping(value = "verCreados",
 			method = RequestMethod.GET)
 	public ModelAndView productosCreadosGet(HttpSession session){
 
@@ -360,7 +360,7 @@ public class mainController {
 		ModelAndView modelAndView = new ModelAndView();
 		creados = daoProducto.findByOwner(userSes);
 		modelAndView.addObject("creaciones", creados);
-		modelAndView.setViewName("/verCreados");
+		modelAndView.setViewName("verCreados");
 
 		return modelAndView;
 	}
