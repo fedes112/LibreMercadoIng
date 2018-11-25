@@ -16,6 +16,7 @@ public class Usuario {
     private long dni;
     private String contraseña;
     private Boolean esAdministrador;
+    private String email;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "prod", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
@@ -78,5 +79,9 @@ public class Usuario {
 
     public void setDni(long dni) {
         this.dni = dni;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }
