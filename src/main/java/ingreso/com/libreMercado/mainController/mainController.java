@@ -107,6 +107,64 @@ public class mainController {
 
 	}
 
+	@RequestMapping(value = "/editarProducto",
+			method = RequestMethod.GET)
+	public ModelAndView editarProductoGET(@RequestParam("id") int id, HttpSession session){
+
+//		daoProducto.delete(id);
+
+		Producto producto = daoProducto.findOne(id);
+
+		ModelAndView modelAndView = new ModelAndView();
+
+		modelAndView.addObject("producto", producto);
+
+
+		modelAndView.setViewName("editarProducto");
+//		return this.editarProductoGET(id, session);
+		return modelAndView;
+	}
+
+//	@RequestMapping(value = "/modificar", method = RequestMethod.GET)
+//	public ModelAndView actualizarRegistroGet(@RequestParam("idBook") long id){
+//
+//		Book book = daoBook.findOne(id);
+//		BookDetails bookDetails = book.getBookDetails();
+//		ModelAndView modelAndView = new ModelAndView();
+//
+//		modelAndView.addObject("book", book);
+//		modelAndView.addObject("desc", bookDetails);
+//
+//		modelAndView.setViewName("modificar");
+//
+//		return modelAndView;
+//	}
+
+
+
+	@RequestMapping(value= "editarProducto",
+			method = RequestMethod.POST)
+	public ModelAndView editarProductoPOST(@ModelAttribute Producto producto, HttpSession session) {
+
+
+		ModelAndView modelAndView = new ModelAndView();
+
+//		producto.setNombreProducto(nombreProducto);
+
+		daoProducto.save(producto);
+
+		modelAndView.addObject("producto", producto);
+
+		modelAndView.setViewName("redirect:/menuPrincipal.html");
+
+		return modelAndView;
+
+	}
+
+
+
+
+
 	@RequestMapping(value = "/comprarProducto",
 			method = RequestMethod.GET)
 	public ModelAndView comprarProductoGET(HttpSession session ,@RequestParam("id") int id){

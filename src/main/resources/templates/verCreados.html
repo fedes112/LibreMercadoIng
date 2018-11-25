@@ -138,6 +138,7 @@
                 <td class="columnInfo"><p th:text = "${p.getTags()}"> </p> </td>
 
                 <td width="7%"><a th:href = "@{/eliminarProducto(id = ${p.getId()})}"><button type="submit" class="btn btn-primary btn-lg btn-block login-button"><label>Eliminar</label></button></a></td>
+                <td width="7%"><a th:href = "@{/editarProducto(id = ${p.getId()})}"><button type="submit" class="btn btn-primary btn-lg btn-block login-button"><label>Editar</label></button></a></td>
             </tr>
 
             </tbody>
