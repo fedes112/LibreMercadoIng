@@ -167,12 +167,6 @@ public class mainController {
 		String nombreProducto = (String) session.getAttribute("busqueda");
 		this.comprarProducto(producto, userSes, id);
 
-		try {
-			EmailService.main(producto.getOwner().getMail(), userSes.getNombreDeUsuario(), producto.getNombreProducto());
-		} catch (Exception e) {
-			System.out.println("Ocurrio un error al enviar email.");
-		}
-
 		return this.verProductos(nombreProducto, modelAndView, session);
 	}
 
@@ -338,6 +332,13 @@ public class mainController {
 		userSes.agregarProductoAlHistorial(producto);
 		daoProducto.save(producto);
 		daoUsuario.save(userSes);
+
+		try {
+			EmailService.main(producto.getOwner().getMail(), userSes.getNombreDeUsuario(), producto.getNombreProducto());
+			System.out.println("Email enviado");
+		} catch (Exception e) {
+			System.out.println("Ocurrio un error al enviar email.");
+		}
 	}
 
 	public ModelAndView verificarUsuario(Usuario usuario, ModelAndView modelAndView, HttpSession session) {
