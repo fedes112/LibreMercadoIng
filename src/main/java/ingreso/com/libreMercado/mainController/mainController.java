@@ -2,6 +2,7 @@ package ingreso.com.libreMercado.mainController;
 
 import ingreso.com.libreMercado.model.DaoUsuario;
 import ingreso.com.libreMercado.model.Usuario;
+import ingreso.com.libreMercado.services.mail.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -146,6 +147,14 @@ public class mainController {
 		if(producto.getCantidad() <= 0) {
 			daoProducto.delete(id);
 		}
+
+		try {
+			EmailService.main(producto.getOwner().getEmail(), userSes.getNombreDeUsuario(), producto.getNombreProducto());
+		}
+		catch (Exception e){
+			System.out.println("Error durante envio de email.");
+		}
+
 
 		modelAndView.addObject("listaDeProductos", daoProducto.findAll());
 		modelAndView.setViewName("verProductos");
