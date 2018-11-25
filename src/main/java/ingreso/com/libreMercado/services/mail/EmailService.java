@@ -11,25 +11,21 @@ public class EmailService {
     private static final String senderPassword = "40395293";//change with your sender password
 
     public static void sendAsHtml(String destinatario, String titulo, String html) throws MessagingException {
-        System.out.println("Sending email to " + destinatario);
-
         Session session = createSession();
 
-        //create message using session
+        //Se crea el mensaje con la session
         MimeMessage message = new MimeMessage(session);
         prepareEmailMessage(message, destinatario, titulo, html);
 
-        //sending message
+        //Se envia el mensaje
         Transport.send(message);
-        System.out.println("Done");
     }
 
-    private static void prepareEmailMessage(MimeMessage message, String to, String title, String html)
-            throws MessagingException {
+    private static void prepareEmailMessage(MimeMessage message, String destinatario, String titulo, String html) throws MessagingException {
         message.setContent(html, "text/html; charset=utf-8");
         message.setFrom(new InternetAddress(senderEmail));
-        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-        message.setSubject(title);
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destinatario));
+        message.setSubject(titulo);
     }
 
     private static Session createSession() {
