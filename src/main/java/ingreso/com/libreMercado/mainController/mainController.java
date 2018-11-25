@@ -124,7 +124,6 @@ public class mainController {
 			method = RequestMethod.GET)
 	public ModelAndView editarProductoGET(@RequestParam("id") int id, HttpSession session){
 
-//		daoProducto.delete(id);
 
 		Producto producto = daoProducto.findOne(id);
 
@@ -134,24 +133,9 @@ public class mainController {
 
 
 		modelAndView.setViewName("editarProducto");
-//		return this.editarProductoGET(id, session);
 		return modelAndView;
 	}
 
-//	@RequestMapping(value = "/modificar", method = RequestMethod.GET)
-//	public ModelAndView actualizarRegistroGet(@RequestParam("idBook") long id){
-//
-//		Book book = daoBook.findOne(id);
-//		BookDetails bookDetails = book.getBookDetails();
-//		ModelAndView modelAndView = new ModelAndView();
-//
-//		modelAndView.addObject("book", book);
-//		modelAndView.addObject("desc", bookDetails);
-//
-//		modelAndView.setViewName("modificar");
-//
-//		return modelAndView;
-//	}
 
 
 
@@ -162,7 +146,6 @@ public class mainController {
 
 		ModelAndView modelAndView = new ModelAndView();
 
-//		producto.setNombreProducto(nombreProducto);
 
 		daoProducto.save(producto);
 
