@@ -120,6 +120,47 @@ public class mainController {
 
 	}
 
+	@RequestMapping(value = "/editarProducto",
+			method = RequestMethod.GET)
+	public ModelAndView editarProductoGET(@RequestParam("id") int id, HttpSession session){
+
+
+		Producto producto = daoProducto.findOne(id);
+
+		ModelAndView modelAndView = new ModelAndView();
+
+		modelAndView.addObject("producto", producto);
+
+
+		modelAndView.setViewName("editarProducto");
+		return modelAndView;
+	}
+
+
+
+
+	@RequestMapping(value= "editarProducto",
+			method = RequestMethod.POST)
+	public ModelAndView editarProductoPOST(@ModelAttribute Producto producto, HttpSession session) {
+
+
+		ModelAndView modelAndView = new ModelAndView();
+
+
+		daoProducto.save(producto);
+
+		modelAndView.addObject("producto", producto);
+
+		modelAndView.setViewName("redirect:/menuPrincipal.html");
+
+		return modelAndView;
+
+	}
+
+
+
+
+
 	@RequestMapping(value = "/comprarProducto",
 			method = RequestMethod.GET)
 	public ModelAndView comprarProductoGET(HttpSession session ,@RequestParam("id") int id){
