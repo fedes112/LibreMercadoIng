@@ -82,7 +82,6 @@ public class Usuario {
         this.dni = dni;
     }
 
-
 	public String getMail() {
 		return mail;
 	}
