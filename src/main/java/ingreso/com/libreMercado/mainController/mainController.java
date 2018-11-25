@@ -17,6 +17,7 @@ import ingreso.com.libreMercado.model.Producto;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -44,38 +45,35 @@ public class mainController {
 		return modelAndView;
 	}
 
+	@RequestMapping(value = "/perfilUsuario",
+			method = RequestMethod.GET)
+	public ModelAndView perfilUsarioGet(HttpSession session) {
+
+		ModelAndView modelAndView = new ModelAndView();
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
+		modelAndView.addObject("Usuario", usuario);
+		modelAndView.setViewName("perfilUsuario");
+
+		return modelAndView;
+
+	}
+
 	@RequestMapping(value = "/menuPrincipal",
 			method = RequestMethod.GET)
 	public ModelAndView menuPrincipalGet(HttpSession session) {
 
 		ModelAndView modelAndView = new ModelAndView();
-
 		Usuario usuario = (Usuario) session.getAttribute("usuario");
 
-		if(null != usuario) {
-			if (usuario.getEsAdministrador()) {
-				modelAndView.setViewName("menuAdmin");
-			}
-			else {
-				modelAndView.setViewName("menuPrincipal");
-			}
-		}
-		else {
-			modelAndView = this.inicioGet(session);
-		}
+		return this.iniciarSesion(usuario, modelAndView, session);
 
-		return modelAndView;
 	}
-
 
 	@RequestMapping(value= "agregarProducto",
 			method = RequestMethod.GET)
 	public ModelAndView agregarProductoGET(HttpSession session) {
 
-		tags.clear();
-		tags.add("Computacion");
-		tags.add("Deporte");
-		tags.add("Ocio");
+		this.creacionDeTags();
 
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("listadeTags",tags);
@@ -106,7 +104,6 @@ public class mainController {
 
 		daoProducto.save(producto);
 		modelAndView.addObject("producto", new Producto());
-
 		modelAndView.setViewName("redirect:/agregarProducto.html");
 
 		return modelAndView;
@@ -114,19 +111,56 @@ public class mainController {
 
 	@RequestMapping(value = "/eliminarProducto",
 			method = RequestMethod.GET)
-	public ModelAndView eliminarRecetaGET(@RequestParam("id") int id){
-		//Producto producto  = daoProducto.findOne(id);
+	public ModelAndView eliminarProductoGET(@RequestParam("id") int id, HttpSession session){
 
 		daoProducto.delete(id);
 
 		ModelAndView modelAndView = new ModelAndView();
 
-		modelAndView.addObject("listaDeProductos", daoProducto.findAll());
-		modelAndView.setViewName("verProductos");
+		return this.productosCreadosGet(session);
+
+	}
+
+	@RequestMapping(value = "/editarProducto",
+			method = RequestMethod.GET)
+	public ModelAndView editarProductoGET(@RequestParam("id") int id, HttpSession session){
+
+
+		Producto producto = daoProducto.findOne(id);
+
+		ModelAndView modelAndView = new ModelAndView();
+
+		modelAndView.addObject("producto", producto);
+
+
+		modelAndView.setViewName("editarProducto");
+		return modelAndView;
+	}
+
+
+
+
+	@RequestMapping(value= "editarProducto",
+			method = RequestMethod.POST)
+	public ModelAndView editarProductoPOST(@ModelAttribute Producto producto, HttpSession session) {
+
+
+		ModelAndView modelAndView = new ModelAndView();
+
+
+		daoProducto.save(producto);
+
+		modelAndView.addObject("producto", producto);
+
+		modelAndView.setViewName("redirect:/menuPrincipal.html");
 
 		return modelAndView;
 
 	}
+
+
+
+
 
 	@RequestMapping(value = "/comprarProducto",
 			method = RequestMethod.GET)
@@ -134,33 +168,21 @@ public class mainController {
 		//Producto producto  = daoProducto.findOne(id);
 
 		Usuario userSes = (Usuario) session.getAttribute("usuario");
-
 		ModelAndView modelAndView = new ModelAndView();
-
 		Producto producto = daoProducto.findOne(id);
-
-		producto.setCantidad(producto.getCantidad() - 1);
-		userSes.agregarProductoAlHistorial(producto);
-		daoProducto.save(producto);
-		daoUsuario.save(userSes);
-
-		if(producto.getCantidad() <= 0) {
-			daoProducto.delete(id);
-		}
+		String nombreProducto = (String) session.getAttribute("busqueda");
+		this.comprarProducto(producto, userSes, id);
 
 		try {
-			EmailService.main(producto.getOwner().getEmail(), userSes.getNombreDeUsuario(), producto.getNombreProducto());
+			EmailService.main(producto.getOwner().getMail(), userSes.getNombreDeUsuario(), producto.getNombreProducto());
 		}
-		catch (Exception e){
-			System.out.println("Error durante envio de email.");
+		catch (Exception e) {
+			System.out.println("Ocurrio un error al enviar email.");
 		}
 
-
-		modelAndView.addObject("listaDeProductos", daoProducto.findAll());
-		modelAndView.setViewName("verProductos");
-
-		return modelAndView;
+		return this.verProductos(nombreProducto, modelAndView, session);
 	}
+
 
 	@RequestMapping(value= "registrarUsuario",
 			method = RequestMethod.GET)
@@ -186,7 +208,6 @@ public class mainController {
 		daoUsuario.save(usuario);
 
 		modelAndView.addObject("usuario", new Usuario());
-
 		modelAndView.setViewName("redirect:/");
 
 		return modelAndView;
@@ -198,7 +219,6 @@ public class mainController {
 		ModelAndView modelAndView = new ModelAndView();
 
 		modelAndView.addObject("usuario", new Usuario());
-
 		modelAndView.setViewName("inicioSesion");
 
 		return modelAndView;
@@ -211,6 +231,126 @@ public class mainController {
 
 		ModelAndView modelAndView = new ModelAndView();
 
+		this.verificarUsuario(usuario, modelAndView, session);
+
+		return this.verificarUsuario(usuario, modelAndView, session);
+	}
+
+	@RequestMapping(value = "cerrarSesion",
+			method = RequestMethod.GET)
+	public ModelAndView cerrarSesionGet(HttpSession session) {
+		session.invalidate();
+
+		return this.inicioGet(session);
+	}
+
+	@RequestMapping(value= "verProductos",
+			method = RequestMethod.GET)
+	public ModelAndView mostrarProductos(HttpSession session ,@RequestParam(value = "nombreProducto", required = false) String nombreProducto){
+		ModelAndView modelAndView = new ModelAndView();
+
+		session.setAttribute("busqueda", nombreProducto);
+		Usuario user = (Usuario) session.getAttribute("usuario");
+		return this.verProductos(nombreProducto, modelAndView, session);
+
+	}
+
+	@RequestMapping(value= "verUsuarios",
+			method = RequestMethod.GET)
+	public ModelAndView verUsuarios(HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView();
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
+
+		return this.verTotalidadDeUsuarios(modelAndView, usuario);
+
+	}
+
+	@RequestMapping(value = "/eliminarUsuario",
+			method = RequestMethod.GET)
+	public ModelAndView eliminarUsuarioGET(@RequestParam("id") String id, HttpSession session){
+
+		ModelAndView modelAndView = new ModelAndView();
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
+
+		return this.eliminarUsuario(usuario, modelAndView, id);
+
+	}
+
+	@RequestMapping(value= "verTodosLosProductos",
+			method = RequestMethod.GET)
+	public ModelAndView verTodosLosProductos(HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView();
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
+		Iterable<Producto> listaProductos = daoProducto.findAll();
+
+		return this.verTotalidadDeProductos(usuario, modelAndView, listaProductos);
+
+	}
+
+
+	@RequestMapping(value = "/historial",
+			method = RequestMethod.GET)
+	public ModelAndView historialGet(HttpSession session){
+
+		Usuario userSes = (Usuario) session.getAttribute("usuario");
+		List<Producto> historial ;
+		ModelAndView modelAndView = new ModelAndView();
+		historial = userSes.getHistorial();
+		modelAndView.addObject("historial", historial);
+		modelAndView.setViewName("/historial");
+
+		return modelAndView;
+	}
+
+
+	@RequestMapping(value = "/verCreados",
+			method = RequestMethod.GET)
+	public ModelAndView productosCreadosGet(HttpSession session){
+
+		Usuario userSes = (Usuario) session.getAttribute("usuario");
+		List<Producto> productosCreados;
+		ModelAndView modelAndView = new ModelAndView();
+		productosCreados = daoProducto.findByOwner(userSes);
+		modelAndView.addObject("listaDeProductos", productosCreados);
+		modelAndView.setViewName("/verCreados");
+
+		return modelAndView;
+	}
+
+
+
+	//----------------------METODOS-----------------------
+
+	public ModelAndView iniciarSesion(Usuario usuario, ModelAndView modelAndView, HttpSession session) {
+		if(null != usuario) {
+			if (usuario.getEsAdministrador()) {
+				modelAndView.setViewName("menuAdmin");
+			}
+			else {
+				modelAndView.setViewName("menuPrincipal");
+			}
+		}
+		else {
+			modelAndView = this.inicioGet(session);
+		}
+		return modelAndView;
+	}
+
+	public void creacionDeTags() {
+		tags.clear();
+		tags.add("Computacion");
+		tags.add("Deporte");
+		tags.add("Ocio");
+	}
+
+	public void comprarProducto(Producto producto, Usuario userSes, int id) {
+		producto.setCantidad(producto.getCantidad() - 1);
+		userSes.agregarProductoAlHistorial(producto);
+		daoProducto.save(producto);
+		daoUsuario.save(userSes);
+	}
+
+	public ModelAndView verificarUsuario(Usuario usuario, ModelAndView modelAndView, HttpSession session) {
 		if (daoUsuario.exists(usuario.getNombreDeUsuario())) {
 
 			Usuario usuario1 = daoUsuario.findOne(usuario.getNombreDeUsuario());
@@ -234,22 +374,12 @@ public class mainController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "cerrarSesion",
-			method = RequestMethod.GET)
-	public ModelAndView cerrarSesionGet(HttpSession session) {
-		session.invalidate();
-
-		return this.inicioGet(session);
-	}
-
-	@RequestMapping(value= "verProductos",
-			method = RequestMethod.GET)
-	public ModelAndView mostrarProductos(HttpSession session ,@RequestParam(value = "nombreProducto", required = false) String nombreProducto){
-		ModelAndView modelAndView = new ModelAndView();
+	public ModelAndView verProductos(String nombreProducto, ModelAndView modelAndView, HttpSession session) {
+		Usuario user = (Usuario) session.getAttribute("usuario");
 		Iterable<Producto> listaProductos ;
-		if(null != session.getAttribute("usuario")) {
+		if(null != user) {
 			if (nombreProducto == null || nombreProducto == "") {
-				listaProductos = daoProducto.findAll();
+				listaProductos = daoProducto.findAllForUser(user);
 			} else {
 				listaProductos = daoProducto.findByNombreProductoLike("%"+nombreProducto+"%");
 				((ArrayList<Producto>) listaProductos).addAll(daoProducto.findByTagsLike("%"+nombreProducto+"%"));
@@ -261,43 +391,32 @@ public class mainController {
 			modelAndView.setViewName("verProductos");
 		}
 		else {
-			modelAndView = this.inicioGet(session);
+			modelAndView.setViewName("inicio");
 		}
 
 		return modelAndView;
 	}
 
-	@RequestMapping(value= "verUsuarios",
-			method = RequestMethod.GET)
-	public ModelAndView verUsuarios(HttpSession session) {
-		ModelAndView modelAndView = new ModelAndView();
-		Usuario usuario = (Usuario) session.getAttribute("usuario");
+	public ModelAndView verTotalidadDeProductos(Usuario usuario, ModelAndView modelAndView, Iterable<Producto> listaProductos) {
 		if(null != usuario) {
-			if(usuario.getEsAdministrador()) {
-
-				Iterable<Usuario> listaDeUsuarios = daoUsuario.findAll();
-
-				modelAndView.addObject("listaDeUsuarios", listaDeUsuarios);
-				modelAndView.setViewName("verUsuarios");
+			if (usuario.getEsAdministrador()) {
+				modelAndView.setViewName("verTodosLosProductos");
+				modelAndView.addObject("listaDeProductos", listaProductos);
 			}
 			else {
 				modelAndView.setViewName("menuPrincipal");
 			}
 		}
 		else {
-			modelAndView = this.inicioGet(session);
+			modelAndView.setViewName("inicio");
 		}
 
 		return modelAndView;
+
 	}
 
 
-	@RequestMapping(value = "/eliminarUsuario",
-			method = RequestMethod.GET)
-	public ModelAndView eliminarUsuarioGET(@RequestParam("id") String id, HttpSession session){
-
-		ModelAndView modelAndView = new ModelAndView();
-		Usuario usuario = (Usuario) session.getAttribute("usuario");
+	public ModelAndView eliminarUsuario(Usuario usuario, ModelAndView modelAndView, String id) {
 
 		if(null != usuario) {
 			if(usuario.getEsAdministrador()) {
@@ -312,65 +431,28 @@ public class mainController {
 			}
 		}
 		else {
-			modelAndView = this.inicioGet(session);
+			modelAndView.setViewName("inicio");
 		}
 
 		return modelAndView;
-
 	}
 
-
-	@RequestMapping(value= "verTodosLosProductos",
-			method = RequestMethod.GET)
-	public ModelAndView verTodosLosProductos(HttpSession session) {
-		ModelAndView modelAndView = new ModelAndView();
-		Usuario usuario = (Usuario) session.getAttribute("usuario");
-		Iterable<Producto> listaProductos ;
-
+	public ModelAndView verTotalidadDeUsuarios(ModelAndView modelAndView, Usuario usuario) {
 		if(null != usuario) {
-			if (usuario.getEsAdministrador()) {
-				modelAndView.setViewName("verTodosLosProductos");
-				listaProductos = daoProducto.findAll();
-				modelAndView.addObject("listaDeProductos", listaProductos);
+			if(usuario.getEsAdministrador()) {
+
+				Iterable<Usuario> listaDeUsuarios = daoUsuario.findAll();
+
+				modelAndView.addObject("listaDeUsuarios", listaDeUsuarios);
+				modelAndView.setViewName("verUsuarios");
 			}
 			else {
 				modelAndView.setViewName("menuPrincipal");
 			}
 		}
 		else {
-			modelAndView = this.inicioGet(session);
+			modelAndView.setViewName("inicio");
 		}
 
 		return modelAndView;
 	}
-
-	@RequestMapping(value = "/historial",
-			method = RequestMethod.GET)
-	public ModelAndView historialGet(HttpSession session){
-
-		Usuario userSes = (Usuario) session.getAttribute("usuario");
-		List<Producto> historial ;
-		ModelAndView modelAndView = new ModelAndView();
-		historial = userSes.getHistorial();
-		modelAndView.addObject("historial", historial);
-		modelAndView.setViewName("/historial");
-
-		return modelAndView;
-	}
-
-
-	@RequestMapping(value = "verCreados",
-			method = RequestMethod.GET)
-	public ModelAndView productosCreadosGet(HttpSession session){
-
-		Usuario userSes = (Usuario) session.getAttribute("usuario");
-		List<Producto>  creados;
-		ModelAndView modelAndView = new ModelAndView();
-		creados = daoProducto.findByOwner(userSes);
-		modelAndView.addObject("creaciones", creados);
-		modelAndView.setViewName("verCreados");
-
-		return modelAndView;
-	}
-
-}
