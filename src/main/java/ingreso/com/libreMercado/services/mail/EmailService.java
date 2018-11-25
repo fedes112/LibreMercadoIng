@@ -44,7 +44,7 @@ public class EmailService {
     }
 
     public static void main(String destinatario, String comprador, String producto) throws MessagingException {
-        EmailService.sendAsHtml("reekremag@gmail.com",
+        EmailService.sendAsHtml(destinatario,
                 "Alguien compro uno de tus productos - Libre Mercado",
                 "<h2>¡Felicidades!</h2><p>El usuario " + comprador + " ha comprado tu producto " + producto +".</p></br></br><p>Libre Mercado");
     }
