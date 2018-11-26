@@ -18,7 +18,7 @@ public class Usuario {
     private Boolean esAdministrador;
     private String mail;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<Integer> puntuacion = new ArrayList<Integer>();
 
     public Usuario(){}
@@ -67,12 +67,14 @@ public class Usuario {
     public void puntuar(Integer puntuacion){ this.puntuacion.add(puntuacion) ;}
 
     public int puntuacion() {
-        int puntos = 0;
-        for (Integer punto: this.puntuacion) {
-            puntos += punto;
-        }
         if(puntuacion.size() == 0) return 0;
-        else return puntos / puntuacion.size();
+        else {
+            int puntos = 0;
+            for (Integer punto: this.puntuacion) {
+                puntos += punto;
+            }
+            return puntos / puntuacion.size();
+        }
     }
 
 
