@@ -92,18 +92,6 @@ public class mainController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "puntuar", method = RequestMethod.POST)
-	public ModelAndView puntuar(HttpSession session,@RequestParam("puntaje") int puntaje,@RequestParam("id") int id) {
-
-	    ProductoComprado producto = daoProductoComprado.findById(id);
-        producto.getVendedor().puntuar(puntaje);
-        producto.setPuntuado();
-        daoUsuario.save(producto.getVendedor());
-        daoProductoComprado.save(producto);
-
-		return this.historialGet(session);
-	}
-
 	@RequestMapping(value = "/eliminarProducto",
 			method = RequestMethod.GET)
 	public ModelAndView eliminarProductoGET(@RequestParam("id") int id, HttpSession session){
@@ -195,12 +183,12 @@ public class mainController {
 			method = RequestMethod.GET)
 	public ModelAndView mostrarProductos(HttpSession session ,@RequestParam(value = "nombreProducto", required = false) String nombreProducto){
 		ModelAndView modelAndView = new ModelAndView();
-
+		
 		session.setAttribute("busqueda", nombreProducto);
 		Usuario user = (Usuario) session.getAttribute("usuario");
 		return this.verProductos(nombreProducto, modelAndView, session);
 
-	}
+	}		
 
 	@RequestMapping(value= "verUsuarios",
 			method = RequestMethod.GET)
@@ -209,7 +197,7 @@ public class mainController {
 		Usuario usuario = (Usuario) session.getAttribute("usuario");
 
 		return this.verTotalidadDeUsuarios(modelAndView, usuario);
-
+		
 	}
 
 	@RequestMapping(value = "/eliminarUsuario",
@@ -222,14 +210,14 @@ public class mainController {
 		return this.eliminarUsuario(usuario, modelAndView, id);
 
 	}
-
+	
 	@RequestMapping(value= "verTodosLosProductos",
 			method = RequestMethod.GET)
 	public ModelAndView verTodosLosProductos(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
 		Usuario usuario = (Usuario) session.getAttribute("usuario");
 		Iterable<Producto> listaProductos = daoProducto.findAll();
-
+		
 		return this.verTotalidadDeProductos(usuario, modelAndView, listaProductos);
 
 	}

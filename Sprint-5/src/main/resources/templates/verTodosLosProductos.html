@@ -90,24 +90,6 @@
 		    max-width: 70%;
 		}
 
-        label {
-          color: grey;
-        }
-        .clasificacion {
-          direction: rtl;
-          unicode-bidi: bidi-override;
-        }
-        label:hover,
-        label:hover ~ label {
-          color: orange;
-        }
-        input[type="radio"] {
-          display: none;
-        }
-        input[type="radio"]:checked ~ label {
-          color: orange;
-        }
-
 	</style>
 
 </head>
@@ -119,9 +101,8 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <a class="nav-item nav-link" th:href ="menuPrincipal">Inicio<span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" th:href ="agregarProducto">Publicar</a>
-            <a class="nav-item nav-link active" th:href ="historial">Mis compras</a>
-            <a class="nav-item nav-link" th:href ="verCreados">Mis publicaciones</a>
+            <a class="nav-item nav-link active" th:href ="verTodosLosProductos">Administrar publicaciones</a>
+            <a class="nav-item nav-link" th:href ="verUsuarios">Administrar usuarios</a>
             <a class="nav-item nav-link" th:href ="cerrarSesion">Cerrar Sesion</a>
         </div>
     </div>
@@ -129,7 +110,7 @@
 
 <br/>
 
-<h1 align="center" class="title">Mis compras</h1>
+<h1 align="center" class="title">Resultados de: </h1>
 
 <br/>
 <br/>
@@ -141,35 +122,23 @@
             <th scope="col" class="columnTitle">Imagen</th>
             <th scope="col" class="columnTitle">Publicacion</th>
             <th scope="col" class="columnTitle">Precio</th>
-            <th scope="col" class="columnTitle">Puntuacion</th>
+            <th scope="col" class="columnTitle">Cantidad</th>
+            <th scope="col" class="columnTitle">Categoria</th>
         </tr>
         </thead>
         <tbody>
-            <tr th:each = "p : ${historial}" >
-                <td class="columnInfo"><img th:src = "${p.getImagen()}" width="75" height="75"/> </td>
-                <td class="columnInfo"><p th:text = "${p.getNombreProducto()}"> </p></td>
-                <td class="columnInfo"><p th:text = "${p.getPrecioProducto()}"> </p></td>
-                <td class="columnInfo">
-                    <div >
-                    <p th:text = "${p.getVendedor().getNombreDeUsuario()}"> </p>
-                        <div th:if="${p.noPuntuado}">
-                            <form class="form-horizontal" method="post" action="puntuar" >
-                                <p class="clasificacion" id="radio" >
-                                    <input id="radio1" type="radio" name="puntaje" value="5"><label for="radio1">★</label></input>
-                                    <input id="radio2" type="radio" name="puntaje" value="4"><label for="radio2">★</label></input>
-                                    <input id="radio3" type="radio" name="puntaje" value="3"><label for="radio3">★</label></input>
-                                    <input id="radio4" type="radio" name="puntaje" value="2"><label for="radio4">★</label></input>
-                                    <input id="radio5" type="radio" name="puntaje" value="1"><label for="radio5">★</label></input>
-                                </p>
-                                <div class="form-group">
-                                    <button type="submit" name="id" th:value="${p.getId()}" class="btn btn-primary btn-lg btn-block login-button">
-                                        <label style="color:black">Puntuar</label></button>
-                                </div>
-                            </form>
-                       </div>
-                    </div>
-                </td>
-            </tr>
+
+        <tr th:each = "p : ${listaDeProductos}" >
+
+            <td class="columnInfo"><img th:src = "${p.getImagen()}" width="75" height="75"/> </td>
+            <td class="columnInfo"><p th:text = "${p.getNombreProducto()}"> </p></td>
+            <td class="columnInfo"><p th:text = "${p.getPrecioProducto()}"> </p></td>
+            <td class="columnInfo"><p th:text = "${p.getCantidad()}"> </p> </td>
+            <td class="columnInfo"><p th:text = "${p.getTags()}"> </p> </td>
+
+            <td width="7%"><a th:href = "@{/eliminarProducto(id = ${p.getId()})}"><button type="submit" class="btn btn-primary btn-lg btn-block login-button"><label>Eliminar</label></button></a></td>
+        </tr>
+
         </tbody>
     </table>
 </div>

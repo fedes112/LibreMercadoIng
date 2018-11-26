@@ -90,24 +90,6 @@
 		    max-width: 70%;
 		}
 
-        label {
-          color: grey;
-        }
-        .clasificacion {
-          direction: rtl;
-          unicode-bidi: bidi-override;
-        }
-        label:hover,
-        label:hover ~ label {
-          color: orange;
-        }
-        input[type="radio"] {
-          display: none;
-        }
-        input[type="radio"]:checked ~ label {
-          color: orange;
-        }
-
 	</style>
 
 </head>
@@ -145,31 +127,15 @@
         </tr>
         </thead>
         <tbody>
-            <tr th:each = "p : ${historial}" >
-                <td class="columnInfo"><img th:src = "${p.getImagen()}" width="75" height="75"/> </td>
-                <td class="columnInfo"><p th:text = "${p.getNombreProducto()}"> </p></td>
-                <td class="columnInfo"><p th:text = "${p.getPrecioProducto()}"> </p></td>
-                <td class="columnInfo">
-                    <div >
-                    <p th:text = "${p.getVendedor().getNombreDeUsuario()}"> </p>
-                        <div th:if="${p.noPuntuado}">
-                            <form class="form-horizontal" method="post" action="puntuar" >
-                                <p class="clasificacion" id="radio" >
-                                    <input id="radio1" type="radio" name="puntaje" value="5"><label for="radio1">★</label></input>
-                                    <input id="radio2" type="radio" name="puntaje" value="4"><label for="radio2">★</label></input>
-                                    <input id="radio3" type="radio" name="puntaje" value="3"><label for="radio3">★</label></input>
-                                    <input id="radio4" type="radio" name="puntaje" value="2"><label for="radio4">★</label></input>
-                                    <input id="radio5" type="radio" name="puntaje" value="1"><label for="radio5">★</label></input>
-                                </p>
-                                <div class="form-group">
-                                    <button type="submit" name="id" th:value="${p.getId()}" class="btn btn-primary btn-lg btn-block login-button">
-                                        <label style="color:black">Puntuar</label></button>
-                                </div>
-                            </form>
-                       </div>
-                    </div>
-                </td>
-            </tr>
+
+        <tr th:each = "p : ${historial}" >
+            <td class="columnInfo"><img th:src = "${p.getImagen()}" width="75" height="75"/> </td>
+            <td class="columnInfo"><p th:text = "${p.getNombreProducto()}"> </p></td>
+            <td class="columnInfo"><p th:text = "${p.getPrecioProducto()}"> </p></td>
+
+
+        </tr>
+
         </tbody>
     </table>
 </div>

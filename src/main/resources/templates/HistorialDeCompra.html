@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> </link>
+    <title>		Formulario Libre Mercado	</title>
+
+    <style type="text/css">
+  body {
+    color: Black;
+    background-color: white }
+  label{
+  	color: white ;
+
+  	}
+  </style>
+
+
+</head>
+
+<body>
+<nav class="navbar navbar-dark bg-dark">
+    <h2 class="navbar-brand" href="#"> Lista de productos comprados </h2>
+</nav>
+<br/>
+<form action="historialGet" method = "get">
+    <tr>
+
+        <td scope="col">    <button type="submit" class="btn btn-dark btn-lg active" value= "Actualizar Comrpas"><label> <a th:href= "@{/verProductos }">Actualizar Comrpas</a></label> </button> </td>
+
+    </tr>
+
+</form>
+<table class="table">
+
+    <thead>
+    <tr>
+
+        <th scope="col">Imagen</th>
+        <th scope="col">Publicacion</th>
+        <th scope="col">Precio</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each = "p : ${historialCompra}" >
+
+        <td><img th:src = "${p.getImagen()}" width="75" height="75"/> </td>
+        <td><p th:text = "${p.getNombreProducto()}"> </p></td>
+        <td><p th:text = "${p.getPrecioProducto()}"> </p></td>
+
+    </tr>
+
+    </tbody>
+</table>
+
+
+<br/>
+<a th:href= "@{/menuPrincipal}" class="btn btn-dark btn-lg active">Inicio</a>
+
+
+
+</body>
+</html>

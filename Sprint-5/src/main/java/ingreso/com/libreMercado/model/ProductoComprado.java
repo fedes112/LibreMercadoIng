@@ -12,7 +12,6 @@ public class ProductoComprado {
 	private String nombreProducto;
 	private float precioProducto;
 	private String imagen;
-	private boolean noPuntuado = true;
 
 
 	@ManyToOne
@@ -61,14 +60,12 @@ public class ProductoComprado {
 	public Usuario getVendedor() { return vendedor; }
 	public void setVendedor(Usuario vendedor) { this.vendedor = vendedor; }
 
+
 	public Usuario getOwner() {
 		return this.owner;
 	}
 	public void setOwner(Usuario owner) {
 		this.owner = owner;
 	}
-
-	public void setPuntuado(){this.noPuntuado = false;}
-	public boolean getNoPuntuado(){return this.noPuntuado;}
 
 }

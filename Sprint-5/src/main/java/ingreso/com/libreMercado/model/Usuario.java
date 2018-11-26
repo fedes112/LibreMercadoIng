@@ -17,8 +17,9 @@ public class Usuario {
     private String contraseña;
     private Boolean esAdministrador;
 
-    @ElementCollection
-    private List<Integer> puntuacion = new ArrayList<Integer>();
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "prod", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
+//    private List<ProductoComprado> historialCompra = new ArrayList<ProductoComprado>();
 
     public Usuario(){}
 
@@ -27,6 +28,7 @@ public class Usuario {
         setNombreDeUsuario(nombreACrear);
         setContraseña(contraseñaACrear);
         setDni(dni);
+
     }
 
     public Boolean getEsAdministrador(){
@@ -62,17 +64,13 @@ public class Usuario {
 
     }
 
-    public void puntuar(Integer puntuacion){ this.puntuacion.add(puntuacion) ;}
-
-    public int puntuacion() {
-        int puntos = 0;
-        for (Integer punto: this.puntuacion) {
-            puntos += punto;
-        }
-        if(puntuacion.size() == 0) return 0;
-        else return puntos / puntuacion.size();
-    }
-
+//    public void agregarProductoAlHistorial(ProductoComprado producto){
+////        this.historialCompra.add(producto);
+////    }
+////
+////    public List<ProductoComprado> getHistorial(){
+////        return this.historialCompra;
+////    }
 
     public long getDni() {
         return dni;

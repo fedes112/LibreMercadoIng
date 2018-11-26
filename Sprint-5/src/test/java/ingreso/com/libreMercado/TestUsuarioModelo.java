@@ -12,11 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.constraints.AssertTrue;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -32,7 +28,6 @@ public class TestUsuarioModelo {
     private DaoProducto daoProducto;
 
     Usuario user = new Usuario("User","111",555);
-
 
     @Test
     public void testeoChequeoDeUsuario(){
@@ -58,15 +53,6 @@ public class TestUsuarioModelo {
         daoProducto.save(computadora_Asus);
 
         Assert.assertTrue(daoProducto.existsByNombreProducto("Computadora Asus"));
-    }
-
-    @Test
-    public void testPuntuandoAUnUsuario() {
-        Usuario usuariopuntuado = new Usuario("armando","1234",1123);
-        usuariopuntuado.puntuar(4);
-        assertEquals(4,usuariopuntuado.puntuacion());
-        usuariopuntuado.puntuar(2);
-        assertEquals(3,usuariopuntuado.puntuacion());
     }
 
     @After
