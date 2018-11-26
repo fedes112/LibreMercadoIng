@@ -9,7 +9,6 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 
@@ -104,6 +103,7 @@
                 <a class="nav-item nav-link" th:href ="agregarProducto">Publicar</a>
                 <a class="nav-item nav-link" th:href ="historial">Mis compras</a>
                 <a class="nav-item nav-link active" th:href ="verCreados">Mis publicaciones</a>
+                <a class="nav-item nav-link" th:href ="perfilUsuario">Mi perfil</a>
                 <a class="nav-item nav-link" th:href ="cerrarSesion">Cerrar Sesion</a>
             </div>
         </div>
@@ -138,6 +138,7 @@
                 <td class="columnInfo"><p th:text = "${p.getTags()}"> </p> </td>
 
                 <td width="7%"><a th:href = "@{/eliminarProducto(id = ${p.getId()})}"><button type="submit" class="btn btn-primary btn-lg btn-block login-button"><label>Eliminar</label></button></a></td>
+                <td width="7%"><a th:href = "@{/editarProducto(id = ${p.getId()})}"><button type="submit" class="btn btn-primary btn-lg btn-block login-button"><label>Editar</label></button></a></td>
             </tr>
 
             </tbody>

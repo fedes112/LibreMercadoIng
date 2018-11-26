@@ -16,6 +16,7 @@ public class Usuario {
     private long dni;
     private String contraseña;
     private Boolean esAdministrador;
+    private String mail;
 
     @ElementCollection
     private List<Integer> puntuacion = new ArrayList<Integer>();
@@ -23,10 +24,11 @@ public class Usuario {
     public Usuario(){}
 
 
-    public Usuario(String nombreACrear, String contraseñaACrear, long dni){
+    public Usuario(String nombreACrear, String contraseñaACrear, long dni, String mail){
         setNombreDeUsuario(nombreACrear);
         setContraseña(contraseñaACrear);
         setDni(dni);
+        setMail(mail);
     }
 
     public Boolean getEsAdministrador(){
@@ -81,4 +83,13 @@ public class Usuario {
     public void setDni(long dni) {
         this.dni = dni;
     }
+
+	public String getMail() {
+		return mail;
+	}
+
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
 }
