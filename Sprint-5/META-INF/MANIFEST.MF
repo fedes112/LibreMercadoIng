@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: libreMercado
-Bundle-SymbolicName: LibreMercado
-Bundle-Version: 1.0.0.qualifier
-Export-Package: ingreso.com.libreMercado,
- ingreso.com.libreMercado.mainController,
- ingreso.com.libreMercado.model
