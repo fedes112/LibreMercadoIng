@@ -12,11 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.constraints.AssertTrue;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -31,12 +27,11 @@ public class TestUsuarioModelo {
     @Autowired
     private DaoProducto daoProducto;
 
-    Usuario user = new Usuario("User","111",555, "user@gmail");
-
+    Usuario user = new Usuario("User","111",555);
 
     @Test
     public void testeoChequeoDeUsuario(){
-        Usuario usuarioGuido = new Usuario("Guido","1234",111, "usuarioguido@gmail");
+        Usuario usuarioGuido = new Usuario("Guido","1234",111);
 
         Assert.assertTrue(usuarioGuido.chequearUsuario("Guido"));
         Assert.assertTrue(usuarioGuido.chequearPassWord("1234"));
@@ -44,7 +39,7 @@ public class TestUsuarioModelo {
 
     @Test
     public void testUsuarioSeRegistraCorrectamente(){
-        Usuario usuarioJuan = new Usuario("Juan","1234",111, "usuarioJuan@gmail");
+        Usuario usuarioJuan = new Usuario("Juan","1234",111);
         daoUsuario.save(usuarioJuan);
 
         Assert.assertTrue(daoUsuario.exists("Juan"));
@@ -58,15 +53,6 @@ public class TestUsuarioModelo {
         daoProducto.save(computadora_Asus);
 
         Assert.assertTrue(daoProducto.existsByNombreProducto("Computadora Asus"));
-    }
-
-    @Test
-    public void testPuntuandoAUnUsuario() {
-        Usuario usuariopuntuado = new Usuario("armando","1234",1123,"estees@unmail.mail");
-        usuariopuntuado.puntuar(4);
-        assertEquals(4,usuariopuntuado.puntuacion());
-        usuariopuntuado.puntuar(2);
-        assertEquals(3,usuariopuntuado.puntuacion());
     }
 
     @After

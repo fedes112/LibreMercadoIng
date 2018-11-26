@@ -1,0 +1,16 @@
+  body {
+    color: purple;
+    background-color: #00FFFF }
+    
+  a:link {
+  	text-decoration: none;
+    }
+    
+  a {
+  	color: red;
+  }  
+  
+  h1{
+   font-size:120px;
+  	text-align: center;
+  }
